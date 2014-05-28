@@ -56,7 +56,7 @@ Aside from generic social brownie points things, users are mostly interested in 
 
 - There's no time but the present
 - Multiple people can have the same job, but jobs can only belong to one company (taking away the need for the 3-node solution)
-- No aside from id and a name, nodes don't have other traits, this emphasizes the power of the network in this example
+- Aside from id and a name, nodes don't have other traits, this emphasizes the power of the connections in this example
 
 == _Briefly describe the problem._
 
