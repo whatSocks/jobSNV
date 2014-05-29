@@ -96,7 +96,7 @@ CREATE (`company1`:COMPANY {id:1, name:'Salyut'}), (`company2`:COMPANY {id:2, na
 
 //create the Skill nodes
 
-CREATE (`skill1`:SKILL {id:1, name:`SASS`}), (`skill2`:SKILL {id:2, name:'Ruby'}), (`skill3`:SKILL {id:3, name:'Java'}), (`skill4`:SKILL {id:4, name:'ELISA'}), (`skill5`:SKILL {id:5, name:'Excel'}), (`skill6`:SKILL {id:6, name:'Marketing'}), (`skill7`:SKILL {id:7, name:'Spanish'}),
+CREATE (`skill1`:SKILL {id:1, name:'SASS'}), (`skill2`:SKILL {id:2, name:'Ruby'}), (`skill3`:SKILL {id:3, name:'Java'}), (`skill4`:SKILL {id:4, name:'ELISA'}), (`skill5`:SKILL {id:5, name:'Excel'}), (`skill6`:SKILL {id:6, name:'Marketing'}), (`skill7`:SKILL {id:7, name:'Spanish'}),
 (`skill8`:SKILL {id:8, name:'R'}),(` skill9`:SKILL {id:9, name:'Boating'}), (`skill10`:SKILL {id:10, name:'Illustrator'}),(` skill10`:SKILL {id:10, name:'InDesign'}), (`skill12`:SKILL {id:12, name:'Photoshop'})
 
 
