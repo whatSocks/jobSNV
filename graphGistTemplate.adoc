@@ -101,7 +101,7 @@ CREATE (`skill1`:SKILL {id:1, name:'SASS'}), (`skill2`:SKILL {id:2, name:'Ruby'}
 
 
 //create the Group nodes
-CREATE (`group1`:GROUP {id:1, name:`SASS User Group`}), (`group2`:GROUP {id:2, name:'HTML5 Lovers'}), (`group3`:GROUP {id:3, name:'FrontEnd4Evr'}), (`group4`:GROUP {id:4, name:'AssayUserGroup'}), (`group5`:GROUP {id:5, name:'ChemStudents'}), (`group6`:GROUP {id:6, name:'BuyNowAndSave'}), (`group7`:GROUP {id:7, name:'SEOPros'}),
+CREATE (`group1`:GROUP {id:1, name:'SASS User Group'}), (`group2`:GROUP {id:2, name:'HTML5 Lovers'}), (`group3`:GROUP {id:3, name:'FrontEnd4Evr'}), (`group4`:GROUP {id:4, name:'AssayUserGroup'}), (`group5`:GROUP {id:5, name:'ChemStudents'}), (`group6`:GROUP {id:6, name:'BuyNowAndSave'}), (`group7`:GROUP {id:7, name:'SEOPros'}),
 (`group8`:GROUP {id:8, name:'useRs'}),(` group9`:GROUP {id:9, name:'Yachties'}), (`group10`:GROUP {id:10, name:'Adobe'})
 
 //create the user-user relationships
