@@ -130,7 +130,7 @@ LIMIT 50
 [source,cypher]
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
-RETURN g.name, s.name, count(DISTINCT p) AS People
+RETURN g.name AS Group, s. AS SKILL, count(DISTINCT p) AS `Number of People`
 ORDER BY People DESC, g.name ASC 
 LIMIT 10
 ----
