@@ -128,6 +128,7 @@ CREATE (`3`)-[:WORKS_AT]->(`company1`), (`4`)-[:WORKS_AT]->(`company1`), (`5`)-[
 ----
 // graph_result
 
+test
 
 _If you need more clarification, insert image of network here. Sample image below._
 
