@@ -120,43 +120,106 @@ CREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`)
 //create the user-company relationships
 CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), (`4`)-[:WORKS_AT]->(`company1`), (`5`)-[:WORKS_AT]->(`company2`), (`6`)-[:WORKS_AT]->(`company3`), (`7`)-[:WORKS_AT]->(`company1`), (`8`)-[:WORKS_AT]->(`company2`), (`9`)-[:WORKS_AT]->(`company3`), (`10`)-[:WORKS_AT]->(`company1`), (`11`)-[:WORKS_AT]->(`company2`), (`12`)-[:WORKS_AT]->(`company3`), (`13`)-[:WORKS_AT]->(`company1`), (`14`)-[:WORKS_AT]->(`company2`), (`15`)-[:WORKS_AT]->(`company3`), (`16`)-[:WORKS_AT]->(`company1`), (`17`)-[:WORKS_AT]->(`company2`), (`18`)-[:WORKS_AT]->(`company3`), (`19`)-[:WORKS_AT]->(`company1`), (`20`)-[:WORKS_AT]->(`company2`)
 
-//return statement commented out for practicality
-//RETURN *
-//LIMIT 50
+RETURN *
+LIMIT 50
 ----
 // graph_result
 
-_If you need more clarification, insert image of network here. Sample image below._
+=== A Closer Look at the User Network
 
-image::http://i.imgur.com/DvwWxMI.png[example]
+[source,cypher]
+----
+MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
+RETURN g.name, s.name, count(DISTINCT p) AS People
+ORDER BY People DESC, g.name ASC 
+LIMIT 10
+----
+//table
+
+Look at all the pretty users. 
 
 
-[[network_subtopic1]]
-=== Network Subtopic 1
+=== A Closer Look at the Job Network
 
-_Should the network need further description, insert content here._
+
+Let's see what jobs are available
+
+[source,cypher]
+----
+MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(p:Skill)
+RETURN c.name AS Company, j.name AS Job, p.name AS `Skills Required`
+LIMIT 10
+----
+//table
+
 
 
 [[problem_1]]
-== Describing and Solving Problem 1
+== Finding the Best Group in which to Advertise
 
-=== _Describe and solve the problem with prose and Cypher!_
+Recap:
+From the company POV, paying for job ads is costly, they want to have high precision. Can the social network offer companies a "you should advertise in XYZ group" recommendation feature? 
 
-_Sample Problem: How do we find a user that's buddies with Jacob and knows about hyraxes?_
+What would recommendation be based on?
 
-_Insert image of problem/solution here. Sample image below._
+- Find groups that current employees are part of 
+- Find groups that high-value users with target skill are part of
+-- See Aardvark example on how they select the best experts: experts that have a lot more friends with similar skills/knowledge give higher quality responses, maybe the same thing will happen here
 
-image::http://upload.wikimedia.org/wikipedia/commons/a/af/Procaviaskull.png[a hyrax]
 
+Let's see how each method works out for us:
 
-//setup
+=== Finding Target Groups through Current Employees 
+
 [source,cypher]
 ----
-MATCH (t:TOPIC)-[:KNOWS_ABOUT]->(a:USER)-[:IS_BUDDY]->(j:USER)
-WHERE j.name = 'Jacob' AND t.name = 'hyrax'
-RETURN DISTINCT a.name as `Knows about Procavia capensis`
+MATCH (p:Person)-[:WORKS_AT]-(c:Company)-[:JOB_AT]-(j:Job), (p)-[:MEMBER]-(g:Group)
+RETURN DISTINCT c.name AS Company, j.name AS Job, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
+ORDER BY `Count of Member Employees` DESC
+LIMIT 10
 ----
-// table
+//table
+
+
+=== Finding Target Groups through Current Employees _with a Similar Skill Set_
+
+[source,cypher]
+----
+MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill),(s)-[:HAS_SKILL]-(p:Person)-[:WORKS_AT]-(c),(p)-[:MEMBER]-(g:Group)
+RETURN DISTINCT c.name AS Company, j.name AS Job, s.name AS `Skills Required`, g.name AS Group, count(DISTINCT p) AS `Count of Member Employees`
+ORDER BY `Count of Member Employees` DESC
+LIMIT 10
+----
+//table
+
+
+Although going through current employees is generally positive, what if a company has no contacts in a particular skill set? 
+
+=== Finding Target Groups with Highest Number of 'Experts'
+
+First, find an expert, as defined by someone with lots people in his or her network with the same skills. 
+
+[source,cypher]
+----
+MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
+RETURN DISTINCT s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
+ORDER BY `Count of Experts` DESC
+LIMIT 10
+----
+//table
+
+What groups are these super-experts in? Are they different than the groups generic experts are in?
+
+[source,cypher]
+----
+MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s),(expert)-[:MEMBER]-(g:Group)
+RETURN DISTINCT g.name as Group, s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
+ORDER BY `Count of Experts` DESC
+LIMIT 10
+----
+//table
+
+
 
 [[problem_1_subtopic1]]
 === Problem 1 Subtopic 1
