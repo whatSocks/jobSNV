@@ -139,8 +139,8 @@ LIMIT 50
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
 RETURN g.name AS Group, s.name AS SKILL, count(DISTINCT p) AS `Number of People`
-RETURN g, d, `Number of People`
 ORDER BY People DESC, g.name ASC 
+RETURN g.name, d.name, `Number of People`
 LIMIT 50
 ----
 //graph_result
