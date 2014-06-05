@@ -14,12 +14,12 @@
 * *<<targeted_ads, Targeted Employment Ads: A Closer Look>>*
 ** <<preview, Planning Group Recommendations>>
 * *<<closer_look, A Closer Look at the Network>>*
-** <<groups, Groups, their Members, and their Skills>>
-** <<companies, Companies, their Employees, and their Skills>>
+** <<groups, Groups>>
+** <<companies, Companies>>
 * *<<problem_1, Finding the Best Group in which to Advertise>>*
 ** <<solution1, Finding Target Groups through Employees>>
 ** <<solution2, Finding Target Groups through Current Employees _with a Similar Skill Set_>>
-** <<solution3, Finding Target Groups with Highest Number of 'Experts'>>
+** <<solution3, Finding Target Groups _with the Highest Number of Experts_>>
 * *<<conclusion, Conclusion>>*
 ** <<why_neo, Why Neo4j?>>
 * *<<use_case, Use Case: Viadeo>>*
@@ -177,7 +177,7 @@ Assuming the Companies in our network are looking for employees with similar ski
 [source,cypher]
 ----
 MATCH (p:Person)-[:WORKS_AT]-(c:Company), (p)-[:MEMBER]-(g:Group)
-RETURN DISTINCT c.name AS Company, j.name AS Job, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
+RETURN DISTINCT c.name AS Company, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
 ORDER BY `Count of Member Employees` DESC
 ----
 //table
@@ -204,7 +204,7 @@ Assuming Companies are looking for skilled workers that will work well with curr
 _description of results here_
 
 [[solution3]]
-=== Finding Target Groups with Highest Number of 'Experts'
+=== Finding Target Groups _with the Highest Number of Experts_
 
 Although going through current employees is generally positive, what if a Company has no contacts in a particular skill set? 
 
@@ -215,7 +215,6 @@ First, find an expert, as defined by someone with lots people in his or her netw
 MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
 RETURN DISTINCT s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
 ORDER BY `Count of Experts` DESC
-LIMIT 10
 ----
 //table
 
@@ -226,7 +225,6 @@ What groups are the better-connected experts in? Are these groups different from
 MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s),(expert)-[:MEMBER]-(g:Group)
 RETURN DISTINCT g.name as Group, s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
 ORDER BY `Count of Experts` DESC
-LIMIT 10
 ----
 //table
 
@@ -250,13 +248,11 @@ Although Cypher has extraordinary features that might immediately improve these 
 [[use_case]]
 == Use Case: Viadeo
 
-image::http://www.neotechnology.com/wp-content/uploads/2012/05/viadeo150x70.gif
-
 When Viadeo, a professional networking service, expanded to a level unmanagable by their traditional MySQL database, the company experienced performance and storage issues that would not perform at the rate the company was growing. Looking for a scalable solution, Christophe Thibault, CTO, decided to implement Neo4j to store Viadeo’s data. Chosen for its performance, ease of use, and its ability to quickly integrate with other applications, Neo4j increased Viadeo’s performance by requiring less storage space and less time to restructure the graph.
 
 [[references]]
 == References
 
-- 'http://www.neotechnology.com/viadeo-usecase/'[Viadeo competes with LinkedIn while using Neo4j as its modern database]
+- 'http://www.neotechnology.com/viadeo-usecase/[Viadeo competes with LinkedIn while using Neo4j as its modern database]'
 - 'http://en.wikipedia.org/wiki/Samuel_Johnson[Networks, Crowds, and Markets]'
 - 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
