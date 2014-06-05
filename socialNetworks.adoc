@@ -8,29 +8,29 @@
 
 == Table of Contents
 
-* *<<introduction, Introduction>>*
-* *<<the_network, The Network>>*
-** <<network_subtopic1, Network Subtopic 1>>
-* *<<problem_1, Describing and Solving Problem 1>>*
-** <<problem_1_subtopic1, Problem 1 Subtopic 1>>
-* *<<problem_2, Describing and Solving Problem 2>>*
-** <<problem_2_subtopic1, Problem 2 Subtopic 1>>
+* *<<the_network, Using a Job Search Social Network to Target Potential Hires>>*
+** <<introduction, Job Networking Platforms, an Introduction>>
+** <<this_graphgist, This GraphGist>>
+* *<<targeted_ads, Targeted Employment Ads: A Closer Look>>*
+** <<preview, Planning Group Recommendations>>
+* *<<closer_look, A Closer Look at the Network>>*
+** <<groups, Groups, their Members, and their Skills>>
+** <<companies, Companies, their Employees, and their Skills>>
+* *<<problem_1, Finding the Best Group in which to Advertise>>*
+** <<solution1, Finding Target Groups through Employees>>
+** <<solution2, Finding Target Groups through Current Employees _with a Similar Skill Set_>>
+** <<solution3, Finding Target Groups with Highest Number of 'Experts'>>
 * *<<conclusion, Conclusion>>*
-** <<conclusion_subtopic1, Conclusion Subtopic 1>>
 ** <<why_neo, Why Neo4j?>>
-* *<<use_case, Use Case: Use Case Name>>*
-* *<<appendix, Cypher Appendix>>*
-** <<cypher_subtopic_1, Cypher Subtopic 1>>
+* *<<use_case, Use Case: Viadeo>>*
 * *<<references, References>>*
-
-[[introduction]]
-== Introduction to GraphGist
 
 
 [[the_network]]
 == Using a Job Search Social Network to Target Potential Hires
 
-=== Job Networking Platforms
+[[introduction]]
+=== Job Networking Platforms, an Introduction
 
 For the majority of users, social networks--including professional networking sites--are free services used to connect with personal or professional contacts, join interest-specific groups, and network with potential employers, clients, or employees. The companies operating the social networks use various means to monetize their service, including sidebar ads from users and third parties, premium accounts that are free from these ads, and charging for presenting ads in the newsfeeds of particular users. 
 
@@ -44,6 +44,7 @@ If someone searches for 'butterflies' on Amazon.com while logged into Facebook, 
 
 Companies on Facebook can target ads at the friends of particular users, as these users presumably share relevant characteristics with the initial users, such as location and interests
 
+[[this_graphgist]]
 === This GraphGist 
 
 This GraphGist explores targeted 'marketing' on job networking sites such as LinkedIn, Vieadeo, and Xing using a combination of the techniques above. Our toy professional networking site allows users and companies to use the site for free, but does charge for job posting, and offers several options on how to put the job posting in front of the most relevant (and hopefully qualified and interested) users. 
@@ -70,7 +71,8 @@ Since this is an example network, we had to make the following abstractions:
 - Multiple people can have the same job, but jobs can only belong to one company
 - Aside from id and a name, nodes don't have other traits, emphasizing the power of the connections and relationships
 
-== Targeting Employment Ads: A Closer Look
+[[targeted_ads]]
+== Targeted Employment Ads: A Closer Look
 
 From the point of view of the Companies driving the Jobs posting market, paying for job ads is costly and often inefficient. Not only does the posting cost money, the Company has to process and filter applicants, raising the cost of ineffective (or no) targeting. In short, Companies are willing to pay a premium for higher precision. Our toy network wants to offer Companies the option to advertise job postings in particular Groups, and will recommend the best Groups for a particular Company's hiring needs. 
 
@@ -78,14 +80,15 @@ Why not take the naive approach and look for groups with the highest proportion 
 
 Although users may not explicitly lie about their experience, they may slightly misrepresent their skills and abilities to mirror that of a more or less experienced person. In addition, users may also join Skill-specific groups due to general interest in learning about the Skill, because they want to network, or for a variety of other reasons. 
 
+[[preview]]
 === Planning Group Recommendations
 
-We can take several paths to generate group recommendations for Companies:
+We can take several paths to generate group recommendations for Companies, which will be described later in this document:
 
 - Find groups with relevant employees as members
 - Find groups with relevant high-value users ("experts") as members
 
-_For more information on how to find experts in a network, take a look at the Aardvark GraphGist [link to graphgist here?]_
+_For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'_
 
 //hide
 //setup
@@ -133,15 +136,17 @@ LIMIT 50
 ----
 // graph_result
 
-=== A Closer Look at the Network
+[[closer_look]]
+== A Closer Look at the Network
 
-==== Groups, their Members, and their Skills
+[[groups]]
+=== Groups, their Members, and their Skills
 
 [source,cypher]
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
-RETURN g.name AS Group, s.name AS Skill, count(DISTINCT p) AS `Persons`
-ORDER BY Persons DESC, g.name ASC 
+RETURN g.name AS Group, s.name AS Skill, count(DISTINCT p) AS `Members`
+ORDER BY Group ASC, Members DESC
 ----
 //table
 
@@ -149,47 +154,40 @@ Our network is very interested in Photoshop, and has several groups competing fo
 
 _Note - I'll adjust the graph so there are two groups with equal numbers of members interested in Skill X to demonstrate why a company might want to pick one over the other_
 
-
-==== Companies, their Employees, and their Skills
+[[companies]]
+=== Companies, their Employees, and their Skills
 
 [source,cypher]
 ----
 MATCH (c:Company)-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]-(s:Skill)
-RETURN c.name AS Company, count(DISTINCT p) AS `Persons`, s.name AS `Skills Required`
+RETURN c.name AS Company, count(DISTINCT p) AS `Employees`, s.name AS `Skills Required`
+ORDER BY Company ASC, Employees DESC
 LIMIT 10
 ----
 //table
 
-
-
+Assuming the Companies in our network are looking for employees with similar skillsets and social fit as their current employees, a Company might prefer a job candidate with more connections to current employees over one with more connections to experts in a particular Skill, depending on the position and how easy required Skills are to learn. 
 
 [[problem_1]]
 == Finding the Best Group in which to Advertise
 
-Recap:
-From the company POV, paying for job ads is costly, they want to have high precision. Can the social network offer companies a "you should advertise in XYZ group" recommendation feature? 
-
-What would recommendation be based on?
-
-- Find groups that current employees are part of 
-- Find groups that high-value users with target skill are part of
--- See Aardvark example on how they select the best experts: experts that have a lot more friends with similar skills/knowledge give higher quality responses, maybe the same thing will happen here
-
-
-Let's see how each method works out for us:
-
-=== Finding Target Groups through Current Employees 
+[[solution1]]
+=== Finding Target Groups through Employees 
 
 [source,cypher]
 ----
-MATCH (p:Person)-[:WORKS_AT]-(c:Company)-[:JOB_AT]-(j:Job), (p)-[:MEMBER]-(g:Group)
+MATCH (p:Person)-[:WORKS_AT]-(c:Company), (p)-[:MEMBER]-(g:Group)
 RETURN DISTINCT c.name AS Company, j.name AS Job, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
 ORDER BY `Count of Member Employees` DESC
-LIMIT 10
 ----
 //table
 
 
+Assuming Companies are looking for low-skilled workers that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. 
+
+_description of results here_
+
+[[solution2]]
 === Finding Target Groups through Current Employees _with a Similar Skill Set_
 
 [source,cypher]
@@ -201,10 +199,14 @@ LIMIT 10
 ----
 //table
 
+Assuming Companies are looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. 
 
-Although going through current employees is generally positive, what if a company has no contacts in a particular skill set? 
+_description of results here_
 
+[[solution3]]
 === Finding Target Groups with Highest Number of 'Experts'
+
+Although going through current employees is generally positive, what if a Company has no contacts in a particular skill set? 
 
 First, find an expert, as defined by someone with lots people in his or her network with the same skills. 
 
@@ -217,7 +219,7 @@ LIMIT 10
 ----
 //table
 
-What groups are these super-experts in? Are they different than the groups generic experts are in?
+What groups are the better-connected experts in? Are these groups different from those of the less-connected experts?
 
 [source,cypher]
 ----
@@ -228,72 +230,33 @@ LIMIT 10
 ----
 //table
 
-
-
-[[problem_1_subtopic1]]
-=== Problem 1 Subtopic 1
-
-==== _Describe and solve the problem with prose and Cypher!_
-
-
-[[problem_2]]
-== Describing and Solving Problem 2
-
-=== _Describe and solve the problem with prose and Cypher!_
-
-_Insert image of problem/solution here. Sample image below._
-
-image::http://i.imgur.com/DvwWxMI.png[example]
-
-
-[[problem_2_subtopic1]]
-=== Problem 2 Subtopic 1
-
-==== _Describe and solve the problem with prose and Cypher!_
+_description of results here_
 
 
 [[conclusion]]
 == Conclusion
 
-_Problems solved, battles won...Jacob has a handful of friends interested in hyraxes._
+_description of results here_
 
-[[conclusion_subtopic1]]
-=== Conclusion Subtopic 1
+
 
 [[why_neo]]
 === Why Neo4j?
 
 image:https://dl.dropboxusercontent.com/u/14493611/neo4j-logo.png[Neo4j Logo]
 
-
-_Explain why Neo4j was used._
+Although Cypher has extraordinary features that might immediately improve these Group recommendations, using these very simple and related searches can produce practical results across a variety of analytical needs. 
 
 [[use_case]]
-== Use Case: Use Case Name
+== Use Case: Viadeo
 
-_logo of use case here_
+image::http://www.neotechnology.com/wp-content/uploads/2012/05/viadeo150x70.gif
 
-_Describe use case here._
-
-[[appendix]]
-== Cypher Appendix
-
-[[cypher_subtopic_1]]
-=== Cypher Subtopic 1
-
-----
-//CYPHER HERE. For example:
-MATCH (a:sample)
-RETURN a
-----
-
-_Explanation of non-trivial Cypher queries used._
+When Viadeo, a professional networking service, expanded to a level unmanagable by their traditional MySQL database, the company experienced performance and storage issues that would not perform at the rate the company was growing. Looking for a scalable solution, Christophe Thibault, CTO, decided to implement Neo4j to store Viadeo’s data. Chosen for its performance, ease of use, and its ability to quickly integrate with other applications, Neo4j increased Viadeo’s performance by requiring less storage space and less time to restructure the graph.
 
 [[references]]
 == References
 
-_some sample references:_
-
-- Frederick, Michael T., Pallab Datta, and Arun K. Somani. "Sub-Graph Routing: A generalized fault-tolerant strategy for link failures in WDM Optical Networks." Computer Networks 50.2 (2006): 181-199.
+- 'http://www.neotechnology.com/viadeo-usecase/'[Viadeo competes with LinkedIn while using Neo4j as its modern database]
 - 'http://en.wikipedia.org/wiki/Samuel_Johnson[Networks, Crowds, and Markets]'
-- 'http://jexp.de/blog/2014/03/sampling-a-neo4j-database/[Sampling a Neo4j Database]'
+- 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
