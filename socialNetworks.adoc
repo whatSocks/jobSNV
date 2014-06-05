@@ -113,7 +113,7 @@ CREATE (`skill1`:Skill {id:1, name:'Django'}), (`skill2`:Skill {id:2, name:'Flas
 CREATE (`skill4`:Skill {id:4, name:'CAD'}), (`skill5`:Skill {id:5, name:'Excel'}), (`skill6`:Skill {id:6, name:'Project Management'})
 
 //create the Skill nodes for the Graphic Designer Job
-(`skill7`:Skill {id:7, name:'Illustrator'}),(`skill8`:Skill {id:8, name:'InDesign'}), (`skill9`:Skill {id:9, name:'Photoshop'})
+CREATE (`skill7`:Skill {id:7, name:'Illustrator'}),(`skill8`:Skill {id:8, name:'InDesign'}), (`skill9`:Skill {id:9, name:'Photoshop'})
 
 
 //create the Group nodes
