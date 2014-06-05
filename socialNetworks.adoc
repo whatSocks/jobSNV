@@ -94,39 +94,118 @@ _For more information on how to find experts in a network, take a look at 'http:
 //setup
 [source,cypher]
 ----
-//create the User nodes
+//create the Person nodes
 CREATE (`1`:Person {id:1, name:'Abeer Fathy'}), (`2`:Person {id:2, name:'An Yu-bao'}), (`3`:Person {id:3, name:'Anastasiya Vasilyev'}), (`4`:Person {id:4, name:'Anna Zaytesev'}), (`5`:Person {id:5, name:'Asley Leger'}), (`6`:Person {id:6, name:'Aziza Hsuang-tsung'}), (`7`:Person {id:7, name:'Bai Vasilyev'}), (`8`:Person {id:8, name:'Barbra Schon'}), (`9`:Person {id:9, name:'Bart Kosana'}), (`10`:Person {id:10, name:'Bill Hinzman'}), (`11`:Person {id:11, name:'Bill Cardille'}), (`12`:Person {id:12, name:'Bobba Fett'}), (`13`:Person {id:13, name:'Cai Shen'}), (`14`:Person {id:14, name:'Cammy Schott'}), (`15`:Person {id:15, name:'Cammy Vinogradov'}), (`16`:Person {id:16, name:'Cammy Sokolov'}), (`17`:Person {id:17, name:'Chan Morozov'}), (`18`:Person {id:18, name:'Chan Bang'}), (`19`:Person {id:19, name:'Charles Craig'}), (`20`:Person {id:20, name:'Chew Kwan-yew'}), (`21`:Person {id:21, name:'Chiang Popov'}), (`22`:Person {id:22, name:'Chiu Xiao-yong'}), (`23`:Person {id:23, name:'Dai Lu-fang'}), (`24`:Person {id:24, name:'Dariya Solovynov'}), (`25`:Person {id:25, name:'Dariya Semyonov'}), (`26`:Person {id:26, name:'Dariya Vorobyrov'}), (`27`:Person {id:27, name:'David Cardille'}), (`28`:Person {id:28, name:'Deeanna Lacroix'}), (`29`:Person {id:29, name:'Deng Szeto'}), (`30`:Person {id:30, name:'Dina Schott'})
 
 //create the Company nodes
-CREATE (`company1`:Company {id:1, name:'Salyut'}), (`company2`:Company {id:2, name:'Tiangong'}), (`company3`:Company {id:3, name:'Mir'}), (`company4`:Company {id:4, name:'Kosmos'}), (`company5`:Company {id:5, name:'Zvezda'}), (`company6`:Company {id:6, name:'Skylab'}), (`company7`:Company {id:7, name:'Genesis'}),(`company8`:Company {id:8, name:'World Medical Inc'}),(` company9`:Company {id:9, name:'Mining Inc'}), (`company10`:Company {id:10, name:'Absolute Engineering'}),(` company10`:Company {id:10, name:'Amazing Transportation'}), (`company12`:Company {id:12, name:'Whiskey Management'})
+CREATE (`company1`:Company {id:1, name:'CRC Press'}), (`company2`:Company {id:2, name:'Quantum Stabilzers'}), (`company3` {id:3, name:'The SilverLogic'})
+
+//temporary - making network much smaller, only 3 of everything but Persons
+//, (`company3`:Company {id:3, name:'Mir'}), (`company4`:Company {id:4, name:'Kosmos'}), (`company5`:Company {id:5, name:'Zvezda'}), (`company6`:Company {id:6, name:'Skylab'}), (`company7`:Company {id:7, name:'Genesis'}),(`company8`:Company {id:8, name:'World Medical Inc'}),(` company9`:Company {id:9, name:'Mining Inc'}), (`company10`:Company {id:10, name:'Absolute Engineering'}),(` company10`:Company {id:10, name:'Amazing Transportation'}), (`company12`:Company {id:12, name:'Whiskey Management'})
 
 //create the Job nodes
-CREATE (`job1`:Job {id:1, name:'Graphic Designer'}), (`job2`:Job {id:2, name:'Naval Engineer'})
+CREATE (`job1`:Job {id:1, name:'Graphic Designer'}), (`job2`:Job {id:2, name:'Naval Engineer'}), (`job3`:Job {id:2, name:'Python Developer'})
 
+//create the Skill nodes for the Python Developer Job
+CREATE (`skill1`:Skill {id:1, name:'Django'}), (`skill2`:Skill {id:2, name:'Flask'}), (`skill3`:Skill {id:3, name:'Git'})
 
-//create the Skill nodes
+//create the Skill nodes for the Naval Engineer Job
+CREATE (`skill4`:Skill {id:4, name:'CAD'}), (`skill5`:Skill {id:5, name:'Excel'}), (`skill6`:Skill {id:6, name:'Project Management'})
 
-CREATE (`skill1`:Skill {id:1, name:'SASS'}), (`skill2`:Skill {id:2, name:'Ruby'}), (`skill3`:Skill {id:3, name:'Java'}), (`skill4`:Skill {id:4, name:'ELISA'}), (`skill5`:Skill {id:5, name:'Excel'}), (`skill6`:Skill {id:6, name:'Marketing'}), (`skill7`:Skill {id:7, name:'Spanish'}),
-(`skill8`:Skill {id:8, name:'R'}),(` skill9`:Skill {id:9, name:'Boating'}), (`skill10`:Skill {id:10, name:'Illustrator'}),(` skill10`:Skill {id:10, name:'InDesign'}), (`skill12`:Skill {id:12, name:'Photoshop'})
+//create the Skill nodes for the Graphic Designer Job
+(`skill7`:Skill {id:7, name:'Illustrator'}),(`skill8`:Skill {id:8, name:'InDesign'}), (`skill9`:Skill {id:9, name:'Photoshop'})
 
 
 //create the Group nodes
-CREATE (`group1`:Group {id:1, name:'SASS User Group'}), (`group2`:Group {id:2, name:'HTML5 Lovers'}), (`group3`:Group {id:3, name:'FrontEnd4Evr'}), (`group4`:Group {id:4, name:'AssayUserGroup'}), (`group5`:Group {id:5, name:'ChemStudents'}), (`group6`:Group {id:6, name:'BuyNowAndSave'}), (`group7`:Group {id:7, name:'SEOPros'}),(`group8`:Group {id:8, name:'useRs'}),(` group9`:Group {id:9, name:'Yachties'}), (`group10`:Group {id:10, name:'Adobe'})
 
-//create the user-user relationships
-CREATE (`2`)-[:KNOWS]->(`18`), (`2`)-[:KNOWS]->(`6`), (`3`)-[:KNOWS]->(`7`), (`3`)-[:KNOWS]->(`5`), (`4`)-[:KNOWS]->(`93`), (`5`)-[:KNOWS]->(`3`), (`6`)-[:KNOWS]->(`2`), (`7`)-[:KNOWS]->(`3`), (`8`)-[:KNOWS]->(`79`), (`8`)-[:KNOWS]->(`4`), (`9`)-[:KNOWS]->(`47`), (`9`)-[:KNOWS]->(`3`), (`9`)-[:KNOWS]->(`5`), (`10`)-[:KNOWS]->(`2`), (`10`)-[:KNOWS]->(`4`), (`10`)-[:KNOWS]->(`6`), (`11`)-[:KNOWS]->(`27`), (`11`)-[:KNOWS]->(`1`), (`11`)-[:KNOWS]->(`3`), (`11`)-[:KNOWS]->(`5`), (`12`)-[:KNOWS]->(`4`), (`12`)-[:KNOWS]->(`6`), (`13`)-[:KNOWS]->(`53`), (`13`)-[:KNOWS]->(`1`), (`14`)-[:KNOWS]->(`30`), (`14`)-[:KNOWS]->(`4`), (`15`)-[:KNOWS]->(`32`), (`15`)-[:KNOWS]->(`26`), (`15`)-[:KNOWS]->(`21`), (`15`)-[:KNOWS]->(`3`), (`15`)-[:KNOWS]->(`5`), (`16`)-[:KNOWS]->(`31`), (`16`)-[:KNOWS]->(`4`), (`17`)-[:KNOWS]->(`37`), (`17`)-[:KNOWS]->(`28`), (`18`)-[:KNOWS]->(`42`), (`18`)-[:KNOWS]->(`2`), (`19`)-[:KNOWS]->(`3`), (`19`)-[:KNOWS]->(`5`), (`20`)-[:KNOWS]->(`84`), (`20`)-[:KNOWS]->(`2`), (`21`)-[:KNOWS]->(`1`), (`21`)-[:KNOWS]->(`3`), (`21`)-[:KNOWS]->(`5`), (`22`)-[:KNOWS]->(`40`), (`22`)-[:KNOWS]->(`86`), (`22`)-[:KNOWS]->(`2`), (`24`)-[:KNOWS]->(`97`), (`24`)-[:KNOWS]->(`4`), (`25`)-[:KNOWS]->(`3`), (`25`)-[:KNOWS]->(`5`), (`26`)-[:KNOWS]->(`98`), (`26`)-[:KNOWS]->(`2`), (`26`)-[:KNOWS]->(`4`), (`26`)-[:KNOWS]->(`6`), (`27`)-[:KNOWS]->(`11`), (`27`)-[:KNOWS]->(`1`), (`27`)-[:KNOWS]->(`3`), (`27`)-[:KNOWS]->(`5`), (`28`)-[:KNOWS]->(`4`), (`29`)-[:KNOWS]->(`19`), (`29`)-[:KNOWS]->(`1`), (`30`)-[:KNOWS]->(`14`)
+CREATE (`group1`:Group {id:1, name:'Adobe Lovers'}), (`group2`:Group {id:2, name:'MIA Alums'}), (`group3`:Group {id:3, name:'Marketing Professionals'})
 
-//user-group
-CREATE (`3`)-[:MEMBER]->(`group1`), (`4`)-[:MEMBER]->(`group1`), (`5`)-[:MEMBER]->(`group1`), (`6`)-[:MEMBER]->(`group1`), (`7`)-[:MEMBER]->(`group1`), (`15`)-[:MEMBER]->(`group1`), (`30`)-[:MEMBER]->(`group1`), (`11`)-[:MEMBER]->(`group1`), (`15`)-[:MEMBER]->(`group1`), (`19`)-[:MEMBER]->(`group1`), (`47`)-[:MEMBER]->(`group1`), (`13`)-[:MEMBER]->(`group1`), (`7`)-[:MEMBER]->(`group1`), (`26`)-[:MEMBER]->(`group1`), (`17`)-[:MEMBER]->(`group1`), (`8`)-[:MEMBER]->(`group1`), (`18`)-[:MEMBER]->(`group1`), (`19`)-[:MEMBER]->(`group1`), (`92`)-[:MEMBER]->(`group1`), (`93`)-[:MEMBER]->(`group1`), (`7`)-[:MEMBER]->(`group1`), (`2`)-[:MEMBER]->(`group2`), (`6`)-[:MEMBER]->(`group2`), (`10`)-[:MEMBER]->(`group2`), (`13`)-[:MEMBER]->(`group2`), (`26`)-[:MEMBER]->(`group2`), (`6`)-[:MEMBER]->(`group2`), (`3`)-[:MEMBER]->(`group2`), (`8`)-[:MEMBER]->(`group2`), (`13`)-[:MEMBER]->(`group2`), (`16`)-[:MEMBER]->(`group3`)
+CREATE (`group4`:Group {id:4, name:'AutoDesk Lovers'}), (`group5`:Group {id:5, name:'Excel Support Group'}), (`group6`:Group {id:6, name:'Fishing is Life'})
+
+CREATE(`group7`:Group {id:7, name:'Snakes Forever'}),(`group8`:Group {id:8, name:'Python Users Unite'}),(`group9`:Group {id:9, name:'Learn Python the Hard Way'})
+
+//create the Person-Person relationships
+CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`)-[:KNOWS]->(`5`), 
+	(`2`)-[:KNOWS]->(`3`), (`2`)-[:KNOWS]->(`4`), (`2`)-[:KNOWS]->(`5`), 
+	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), 
+	(`4`)-[:KNOWS]->(`5`), 
+	(`5`)-[:KNOWS]->(`7`), 
+	(`6`)-[:KNOWS]->(`7`), 
+	(`8`)-[:KNOWS]->(`7`), 
+	(`9`)-[:KNOWS]->(`3`), (`9`)-[:KNOWS]->(`5`), 
+	(`10`)-[:KNOWS]->(`2`), (`10`)-[:KNOWS]->(`4`), (`10`)-[:KNOWS]->(`6`), 
+	(`11`)-[:KNOWS]->(`27`), (`11`)-[:KNOWS]->(`1`), (`11`)-[:KNOWS]->(`3`), (`11`)-[:KNOWS]->(`5`), 
+	(`12`)-[:KNOWS]->(`4`), (`12`)-[:KNOWS]->(`6`), 
+	(`13`)-[:KNOWS]->(`53`), (`13`)-[:KNOWS]->(`1`), 
+	(`14`)-[:KNOWS]->(`30`), (`14`)-[:KNOWS]->(`4`), 
+	(`15`)-[:KNOWS]->(`30`), (`15`)-[:KNOWS]->(`26`), (`15`)-[:KNOWS]->(`21`), (`15`)-[:KNOWS]->(`3`), (`15`)-[:KNOWS]->(`5`), 
+	(`16`)-[:KNOWS]->(`31`), (`16`)-[:KNOWS]->(`4`), 
+	(`17`)-[:KNOWS]->(`37`), (`17`)-[:KNOWS]->(`28`), 
+	(`18`)-[:KNOWS]->(`42`), (`18`)-[:KNOWS]->(`2`), 
+	(`19`)-[:KNOWS]->(`3`), (`19`)-[:KNOWS]->(`5`), 
+	(`20`)-[:KNOWS]->(`84`), (`20`)-[:KNOWS]->(`2`), 
+	(`21`)-[:KNOWS]->(`1`), (`21`)-[:KNOWS]->(`3`), (`21`)-[:KNOWS]->(`5`), 
+	(`22`)-[:KNOWS]->(`4`), (`22`)-[:KNOWS]->(`6`), (`22`)-[:KNOWS]->(`2`), 
+	(`24`)-[:KNOWS]->(`7`), (`24`)-[:KNOWS]->(`4`), 
+	(`25`)-[:KNOWS]->(`3`), (`25`)-[:KNOWS]->(`5`), 
+	(`26`)-[:KNOWS]->(`18`), (`26`)-[:KNOWS]->(`2`), (`26`)-[:KNOWS]->(`4`), (`26`)-[:KNOWS]->(`6`), 
+	(`27`)-[:KNOWS]->(`11`), (`27`)-[:KNOWS]->(`1`), (`27`)-[:KNOWS]->(`3`), (`27`)-[:KNOWS]->(`5`), 
+	(`28`)-[:KNOWS]->(`4`), 
+	(`29`)-[:KNOWS]->(`19`), (`29`)-[:KNOWS]->(`1`), 
+	(`30`)-[:KNOWS]->(`14`)
+
+//Create the Person-Group relationships
+
+//Groups of interest to Graphic Designers
+CREATE (`1`)-[:MEMBER]->(`group1`), (`2`)-[:MEMBER]->(`group1`), (`3`)-[:MEMBER]->(`group1`), (`4`)-[:MEMBER]->(`group1`)
+CREATE (`5`)-[:MEMBER]->(`group2`), (`6`)-[:MEMBER]->(`group2`), (`7`)-[:MEMBER]->(`group2`), (`8`)-[:MEMBER]->(`group2`), (`9`)-[:MEMBER]->(`group2`)
+CREATE (`1`)-[:MEMBER]->(`group3`), (`3`)-[:MEMBER]->(`group3`), (`5`)-[:MEMBER]->(`group3`), (`7`)-[:MEMBER]->(`group3`), (`9`)-[:MEMBER]->(`group3`)
+
+//Groups of interest to Naval Engineers
+CREATE (`11`)-[:MEMBER]->(`group4`), (`12`)-[:MEMBER]->(`group4`), (`13`)-[:MEMBER]->(`group4`), (`14`)-[:MEMBER]->(`group4`)
+CREATE (`15`)-[:MEMBER]->(`group4`), (`16`)-[:MEMBER]->(`group4`), (`17`)-[:MEMBER]->(`group4`), (`18`)-[:MEMBER]->(`group5`), (`19`)-[:MEMBER]->(`group5`)
+CREATE (`11`)-[:MEMBER]->(`group5`), (`13`)-[:MEMBER]->(`group5`), (`15`)-[:MEMBER]->(`group5`), (`17`)-[:MEMBER]->(`group5`), (`19`)-[:MEMBER]->(`group5`)
+
+//Groups of interest to Python Engineers
+CREATE (`21`)-[:MEMBER]->(`group6`), (`22`)-[:MEMBER]->(`group6`), (`23`)-[:MEMBER]->(`group6`), (`24`)-[:MEMBER]->(`group6`)
+CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
+CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`)
 
 //create job-skill relationships
 CREATE (`job1`)-[:HAS_SKILL]->(`skill8`), (`job2`)-[:HAS_SKILL]->(`skill12`)
 
 //create the user-skill relationships
-CREATE (`2`)-[:HAS_SKILL]->(`skill8`), (`2`)-[:HAS_SKILL]->(`skill12`), (`3`)-[:HAS_SKILL]->(`skill12`), (`3`)-[:HAS_SKILL]->(`skill12`), (`4`)-[:HAS_SKILL]->(`skill3`), (`5`)-[:HAS_SKILL]->(`skill12`), (`6`)-[:HAS_SKILL]->(`skill12`), (`7`)-[:HAS_SKILL]->(`skill12`), (`8`)-[:HAS_SKILL]->(`skill9`), (`8`)-[:HAS_SKILL]->(`skill12`), (`9`)-[:HAS_SKILL]->(`skill7`), (`9`)-[:HAS_SKILL]->(`skill12`), (`9`)-[:HAS_SKILL]->(`skill12`), (`10`)-[:HAS_SKILL]->(`skill12`), (`10`)-[:HAS_SKILL]->(`skill12`), (`10`)-[:HAS_SKILL]->(`skill12`), (`11`)-[:HAS_SKILL]->(`skill7`), (`11`)-[:HAS_SKILL]->(`skill12`), (`11`)-[:HAS_SKILL]->(`skill12`), (`11`)-[:HAS_SKILL]->(`skill12`), (`12`)-[:HAS_SKILL]->(`skill12`), (`12`)-[:HAS_SKILL]->(`skill12`), (`13`)-[:HAS_SKILL]->(`skill3`), (`13`)-[:HAS_SKILL]->(`skill12`), (`14`)-[:HAS_SKILL]->(`skill0`), (`14`)-[:HAS_SKILL]->(`skill12`), (`15`)-[:HAS_SKILL]->(`skill `), (`15`)-[:HAS_SKILL]->(`skill `), (`15`)-[:HAS_SKILL]->(`skill1`), (`15`)-[:HAS_SKILL]->(`skill `), (`15`)-[:HAS_SKILL]->(`skill `), (`16`)-[:HAS_SKILL]->(`skill1`), (`16`)-[:HAS_SKILL]->(`skill12`), (`17`)-[:HAS_SKILL]->(`skill7`), (`17`)-[:HAS_SKILL]->(`skill8`), (`18`)-[:HAS_SKILL]->(`skill2`), (`18`)-[:HAS_SKILL]->(`skill12`), (`19`)-[:HAS_SKILL]->(`skill12`), (`19`)-[:HAS_SKILL]->(`skill12`), (`20`)-[:HAS_SKILL]->(`skill4`), (`20`)-[:HAS_SKILL]->(`skill12`), (`21`)-[:HAS_SKILL]->(`skill12`), (`21`)-[:HAS_SKILL]->(`skill12`), (`21`)-[:HAS_SKILL]->(`skill12`), (`22`)-[:HAS_SKILL]->(`skill0`), (`22`)-[:HAS_SKILL]->(`skill6`), (`22`)-[:HAS_SKILL]->(`skill12`), (`24`)-[:HAS_SKILL]->(`skill7`), (`24`)-[:HAS_SKILL]->(`skill12`), (`25`)-[:HAS_SKILL]->(`skill12`), (`25`)-[:HAS_SKILL]->(`skill12`), (`26`)-[:HAS_SKILL]->(`skill8`), (`26`)-[:HAS_SKILL]->(`skill12`), (`26`)-[:HAS_SKILL]->(`skill12`), (`26`)-[:HAS_SKILL]->(`skill12`), (`27`)-[:HAS_SKILL]->(`skill1`), (`27`)-[:HAS_SKILL]->(`skill12`), (`27`)-[:HAS_SKILL]->(`skill12`), (`27`)-[:HAS_SKILL]->(`skill12`), (`28`)-[:HAS_SKILL]->(`skill12`), (`29`)-[:HAS_SKILL]->(`skill9`), (`29`)-[:HAS_SKILL]->(`skill12`), (`30`)-[:HAS_SKILL]->(`skill4`), (`30`)-[:HAS_SKILL]->(`skill12`)
+CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
+	(`2`)-[:HAS_SKILL]->(`skill1`), (`2`)-[:HAS_SKILL]->(`skill2`), (`2`)-[:HAS_SKILL]->(`skill3`), 
+	(`3`)-[:HAS_SKILL]->(`skill1`), (`3`)-[:HAS_SKILL]->(`skill2`), 
+	(`4`)-[:HAS_SKILL]->(`skill1`), 
+	(`5`)-[:HAS_SKILL]->(`skill1`), 
+	(`6`)-[:HAS_SKILL]->(`skill1`), 
+	(`8`)-[:HAS_SKILL]->(`skill1`), 
+	(`9`)-[:HAS_SKILL]->(`skill1`), (`9`)-[:HAS_SKILL]->(`skill2`), 
+	(`10`)-[:HAS_SKILL]->(`skill1`), (`10`)-[:HAS_SKILL]->(`skill2`), (`10`)-[:HAS_SKILL]->(`skill3`), 
+	(`11`)-[:HAS_SKILL]->(`skill4`), (`11`)-[:HAS_SKILL]->(`skill5`), (`11`)-[:HAS_SKILL]->(`skill6`), (`11`)-[:HAS_SKILL]->(`skill7`), 
+	(`12`)-[:HAS_SKILL]->(`skill4`), (`12`)-[:HAS_SKILL]->(`skill5`), 
+	(`13`)-[:HAS_SKILL]->(`skill4`), (`13`)-[:HAS_SKILL]->(`skill5`), 
+	(`14`)-[:HAS_SKILL]->(`skill4`), (`14`)-[:HAS_SKILL]->(`skill5`), 
+	(`15`)-[:HAS_SKILL]->(`skill4`), (`15`)-[:HAS_SKILL]->(`skill5`), (`15`)-[:HAS_SKILL]->(`skill6`), (`15`)-[:HAS_SKILL]->(`skill7`), (`15`)-[:HAS_SKILL]->(`skill8`), 
+	(`16`)-[:HAS_SKILL]->(`skill4`), (`16`)-[:HAS_SKILL]->(`skill5`), 
+	(`17`)-[:HAS_SKILL]->(`skill4`), (`17`)-[:HAS_SKILL]->(`skill5`), 
+	(`18`)-[:HAS_SKILL]->(`skill4`), (`18`)-[:HAS_SKILL]->(`skill5`), 
+	(`19`)-[:HAS_SKILL]->(`skill4`), (`19`)-[:HAS_SKILL]->(`skill5`), 
+	(`20`)-[:HAS_SKILL]->(`skill7`), (`20`)-[:HAS_SKILL]->(`skill8`), 
+	(`21`)-[:HAS_SKILL]->(`skill7`), (`21`)-[:HAS_SKILL]->(`skill8`), (`21`)-[:HAS_SKILL]->(`skill9`), 
+	(`22`)-[:HAS_SKILL]->(`skill7`), (`22`)-[:HAS_SKILL]->(`skill8`), (`22`)-[:HAS_SKILL]->(`skill9`), 
+	(`24`)-[:HAS_SKILL]->(`skill7`), (`24`)-[:HAS_SKILL]->(`skill8`), 
+	(`25`)-[:HAS_SKILL]->(`skill7`), (`25`)-[:HAS_SKILL]->(`skill8`), 
+	(`26`)-[:HAS_SKILL]->(`skill7`), (`26`)-[:HAS_SKILL]->(`skill8`), (`26`)-[:HAS_SKILL]->(`skill9`), 
+	(`27`)-[:HAS_SKILL]->(`skill7`), (`27`)-[:HAS_SKILL]->(`skill8`), (`27`)-[:HAS_SKILL]->(`skill9`), 
+	(`28`)-[:HAS_SKILL]->(`skill4`), 
+	(`29`)-[:HAS_SKILL]->(`skill7`), (`29`)-[:HAS_SKILL]->(`skill8`), 
+	(`30`)-[:HAS_SKILL]->(`skill7`)
 
-//create the job-company relationshps
-CREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`)
+
+//create the job-company relationshpCREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`), (`job3`)-[:JOB_AT]->(`company3`)
 
 //create the user-company relationships
 CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), (`4`)-[:WORKS_AT]->(`company1`), (`5`)-[:WORKS_AT]->(`company2`), (`6`)-[:WORKS_AT]->(`company3`), (`7`)-[:WORKS_AT]->(`company1`), (`8`)-[:WORKS_AT]->(`company2`), (`9`)-[:WORKS_AT]->(`company3`), (`10`)-[:WORKS_AT]->(`company1`), (`11`)-[:WORKS_AT]->(`company2`), (`12`)-[:WORKS_AT]->(`company3`), (`13`)-[:WORKS_AT]->(`company1`), (`14`)-[:WORKS_AT]->(`company2`), (`15`)-[:WORKS_AT]->(`company3`), (`16`)-[:WORKS_AT]->(`company1`), (`17`)-[:WORKS_AT]->(`company2`), (`18`)-[:WORKS_AT]->(`company3`), (`19`)-[:WORKS_AT]->(`company1`), (`20`)-[:WORKS_AT]->(`company2`)
