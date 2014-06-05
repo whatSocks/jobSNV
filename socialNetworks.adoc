@@ -135,30 +135,33 @@ LIMIT 50
 
 === A Closer Look at the Network
 
+==== Groups, their Members, and their Skills
+
 [source,cypher]
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
-RETURN g.name AS Group, s.name AS SKILL, count(DISTINCT p) AS `Persons`
+RETURN g.name AS Group, s.name AS Skill, count(DISTINCT p) AS `Persons`
 ORDER BY Persons DESC, g.name ASC 
-LIMIT 50
 ----
 //table
 
-Look at all the pretty users. 
+Our network is very interested in Photoshop, and has several groups competing for 'most interested in Photoshop'. If a Company has enough resources to advertise a Job to one group, which group should it advertise to?
+
+_Note - I'll adjust the graph so there are two groups with equal numbers of members interested in Skill X to demonstrate why a company might want to pick one over the other_
 
 
-=== A Closer Look at the Job Network
-
-
-Let's see what jobs are available
+==== Companies, their Employees, and their Skills
 
 [source,cypher]
 ----
-MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(p:Skill)
-RETURN c.name AS Company, j.name AS Job, p.name AS `Skills Required`
+MATCH (c:Company)-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]-(s:Skill)
+RETURN c.name AS Company, count(DISTINCT p) AS `Persons`, s.name AS `Skills Required`
 LIMIT 10
 ----
 //table
+
+
+
 
 [[problem_1]]
 == Finding the Best Group in which to Advertise
