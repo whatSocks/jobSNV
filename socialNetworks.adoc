@@ -36,8 +36,13 @@ For the majority of users, social networks--including professional networking si
 
 Companies and individuals purchasing services like advertisements from social network sites want the best bang for their buck: they are paying a premium to present their ad to potential clients, and they would rather not 'waste' views on users that have no interest in the product in question. Social networking services use a variety of means to offer their customers the best access to high-value targets. For example, social networks offer targeted ads based on combinations of: 
 
-- *User Interests*: For example, I can search for 'butterflies' on Amazon.com while logged into Facebook and am then presented with lepidopterae-related ads across Facebook
-- *Social Network*:  For example, companies on Facebook can target ads at the friends of particular users, as these users presumably share relevant characteristics with the initial users, such as location and interests
+==== User Interests
+
+If someone searches for 'butterflies' on Amazon.com while logged into Facebook, she is then presented with lepidopterae-related ads across Facebook
+
+==== Social Network
+
+Companies on Facebook can target ads at the friends of particular users, as these users presumably share relevant characteristics with the initial users, such as location and interests
 
 === This GraphGist 
 
@@ -47,7 +52,7 @@ This GraphGist explores targeted 'marketing' on job networking sites such as Lin
 
 Our toy netowork includes: 
 
-- *Persons*: Persons, or the free users of the site, can be actively looking for work, happily employed and using the site to connect with fellow professionals, or a combination. Persons can make connections between themeselves and other Persons, the Company they work for, Groups they are a member of, Jobs they currently or desire topossess, and Skills they are interested in using.
+- *Persons*: Persons, or the free users of the site, can be actively looking for work, happily employed and using the site to connect with fellow professionals, or a combination. Persons can make connections between themeselves and other Persons, the Company they work for, Groups they are a member of, Jobs they can express interest in, and Skills they are interested in or currently use.
 
 - *Companies*: Companies in this example are interested in hiring the best talent, and are willing to pay to present job postings (Jobs) to targeted potential employees. 
 
@@ -69,7 +74,9 @@ Since this is an example network, we had to make the following abstractions:
 
 From the point of view of the Companies driving the Jobs posting market, paying for job ads is costly. Not only does the posting cost money, the Company has to process and filter applicants, raising the cost of ineffective (or no) targeting. In short, Companies are willing to pay a premium for higher precision. Our toy network wants to offer Companies the option to advertise job postings in particular Groups, and will recommend the best Groups for a particular Company's hiring needs. 
 
-Why not take the naive approach and look for groups with the highest proportion of members with target skills? Users want to be in a position where companies think they are high-value assets even though they may have less than ideal experience in the field. Users may also join Skill-specific groups due to general interest in learning about the Skill, because they want to network, or for a variety of other reasons. 
+Why not take the naive approach and look for groups with the highest proportion of members with target skills? Job networking sites serve groups with related but sometimes opposing interests. Users want to showcase themselves as ideal candidates, and Companies want to be able to find actually valuable candidates using limited information. 
+
+Although users may not explicitly lie about their experience, they may slightly misrepresent their skills and abilities to mirror that of a more or less experienced person. In addition, users may also join Skill-specific groups due to general interest in learning about the Skill, because they want to network, or for a variety of other reasons. 
 
 === Planning Group Recommendations
 
