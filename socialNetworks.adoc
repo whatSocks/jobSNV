@@ -48,7 +48,7 @@ Companies on Facebook can target ads at the friends of particular users, as thes
 
 This GraphGist explores targeted 'marketing' on job networking sites such as LinkedIn, Vieadeo, and Xing using a combination of the techniques above. Our toy professional networking site allows users and companies to use the site for free, but does charge for job posting, and offers several options on how to put the job posting in front of the most relevant (and hopefully qualified and interested) users. 
 
-==== A brief description of professional netowrk:
+==== A brief description of our professional network:
 
 Our toy netowork includes: 
 
@@ -72,7 +72,7 @@ Since this is an example network, we had to make the following abstractions:
 
 == Targeting Employment Ads: A Closer Look
 
-From the point of view of the Companies driving the Jobs posting market, paying for job ads is costly. Not only does the posting cost money, the Company has to process and filter applicants, raising the cost of ineffective (or no) targeting. In short, Companies are willing to pay a premium for higher precision. Our toy network wants to offer Companies the option to advertise job postings in particular Groups, and will recommend the best Groups for a particular Company's hiring needs. 
+From the point of view of the Companies driving the Jobs posting market, paying for job ads is costly and often inefficient. Not only does the posting cost money, the Company has to process and filter applicants, raising the cost of ineffective (or no) targeting. In short, Companies are willing to pay a premium for higher precision. Our toy network wants to offer Companies the option to advertise job postings in particular Groups, and will recommend the best Groups for a particular Company's hiring needs. 
 
 Why not take the naive approach and look for groups with the highest proportion of members with target skills? Job networking sites serve groups with related but sometimes opposing interests. Users want to showcase themselves as ideal candidates, and Companies want to be able to find actually valuable candidates using limited information. 
 
@@ -80,22 +80,12 @@ Although users may not explicitly lie about their experience, they may slightly 
 
 === Planning Group Recommendations
 
-We can take several paths to generate group recommendations for companies:
+We can take several paths to generate group recommendations for Companies:
 
-- Find groups that current employees are part of 
-- Find groups that high-value users with target skill are part of
+- Find groups with relevant employees as members
+- Find groups with relevant high-value users ("experts") as members
 
-_See Aardvark example on how they select the best experts: experts that have a lot more friends with similar skills/knowledge give higher quality responses, maybe the same thing will happen here_
-
-
-Can the social networking application offer some suggestions as to how to improve results? Same as above, with one change:
-
-- Find groups that current employees of companies with _open_ jobs with relevant skills are members of
-
-What might be a less good idea:
-
-- Find groups with other users that have relevant skills are members of (this seems like a good idea for general networking and education, but perhaps it's naive - these groups may be too general)
--- this might give good recall, but poor precision
+_For more information on how to find experts in a network, take a look at the Aardvark GraphGist [link to graphgist here?]_
 
 //hide
 //setup
@@ -143,15 +133,17 @@ LIMIT 50
 ----
 // graph_result
 
-=== A Closer Look at the User Network
+=== A Closer Look at the Network
 
 [source,cypher]
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
-RETURN g.name AS Group, s. AS SKILL, count(DISTINCT p) AS `Number of People`
+RETURN g.name AS Group, s.name AS SKILL, count(DISTINCT p) AS `Number of People`
+RETURN g, d, `Number of People`
 ORDER BY People DESC, g.name ASC 
-LIMIT 10
+LIMIT 50
 ----
+//graph_result
 //table
 
 Look at all the pretty users. 
