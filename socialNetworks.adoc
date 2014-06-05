@@ -32,12 +32,12 @@
 
 === Job Networking Platforms
 
-For the majority of users social networks -- including professional networking sites -- are free services used to connect with personal or professional contacts, join interest-specific groups, and network with potential employers, clients, or employees. The companies operating the social networks use various means to monetize their service, including sidebar ads from users and third parties, premium accounts that are free from these ads, and charging for presenting ads in the newsfeeds of particular users. 
+For the majority of users, social networks--including professional networking sites--are free services used to connect with personal or professional contacts, join interest-specific groups, and network with potential employers, clients, or employees. The companies operating the social networks use various means to monetize their service, including sidebar ads from users and third parties, premium accounts that are free from these ads, and charging for presenting ads in the newsfeeds of particular users. 
 
 Companies and individuals purchasing services like advertisements from social network sites want the best bang for their buck: they are paying a premium to present their ad to potential clients, and they would rather not 'waste' views on users that have no interest in the product in question. Social networking services use a variety of means to offer their customers the best access to high-value targets. For example, social networks offer targeted ads based on combinations of: 
 
-- *user interestes*: (I search for 'butterflies' on Amazon.com while logged into Facebook and am then presented with lepidopterae-related ads across Facebook)
-- *social network*:  Companies on Facebook can target ads at the friends of particular users, as these users presumably share relevant characteristics with the initial users, such as location and interests
+- *User Interests*: For example, I can search for 'butterflies' on Amazon.com while logged into Facebook and am then presented with lepidopterae-related ads across Facebook
+- *Social Network*:  For example, companies on Facebook can target ads at the friends of particular users, as these users presumably share relevant characteristics with the initial users, such as location and interests
 
 === This GraphGist 
 
@@ -65,20 +65,21 @@ Since this is an example network, we had to make the following abstractions:
 - Multiple people can have the same job, but jobs can only belong to one company
 - Aside from id and a name, nodes don't have other traits, emphasizing the power of the connections and relationships
 
-
 == Targeting Employment Ads: A Closer Look
 
 From the point of view of the Companies driving the Jobs posting market, paying for job ads is costly. Not only does the posting cost money, the Company has to process and filter applicants, raising the cost of ineffective (or no) targeting. In short, Companies are willing to pay a premium for higher precision. Our toy network wants to offer Companies the option to advertise job postings in particular Groups, and will recommend the best Groups for a particular Company's hiring needs. 
 
+Why not take the naive approach and look for groups with the highest proportion of members with target skills? Users want to be in a position where companies think they are high-value assets even though they may have less than ideal experience in the field. Users may also join Skill-specific groups due to general interest in learning about the Skill, because they want to network, or for a variety of other reasons. 
+
 === Planning Group Recommendations
 
-We can take several paths to generate recommended groups for companies to advertise in:
+We can take several paths to generate group recommendations for companies:
 
 - Find groups that current employees are part of 
 - Find groups that high-value users with target skill are part of
--- See Aardvark example on how they select the best experts: experts that have a lot more friends with similar skills/knowledge give higher quality responses, maybe the same thing will happen here
 
-From the user POV, users want to be in a position where companies think they are high-value assets even though they may have less than ideal experience in the field (thus the quest for employment). 
+_See Aardvark example on how they select the best experts: experts that have a lot more friends with similar skills/knowledge give higher quality responses, maybe the same thing will happen here_
+
 
 Can the social networking application offer some suggestions as to how to improve results? Same as above, with one change:
 
