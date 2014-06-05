@@ -1,4 +1,4 @@
-= Title of GraphGist
+= Using a Professional Social Network to Target Potential Hires
 :neo4j-version: 2.1.0
 :author: Your Name Here
 :description: A sentence description.
@@ -27,7 +27,7 @@
 
 
 [[the_network]]
-== Using a Job Search Social Network to Target Potential Hires
+== Using a Professional Social Network to Target Potential Hires
 
 [[introduction]]
 === Job Networking Platforms, an Introduction
