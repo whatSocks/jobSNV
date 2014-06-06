@@ -88,7 +88,7 @@ We can take several paths to generate group recommendations for Companies, which
 - Find groups with relevant employees as members
 - Find groups with relevant high-value users ("experts") as members
 
-_For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'_
+For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
 
 //hide
 //setup
