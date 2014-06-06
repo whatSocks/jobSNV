@@ -104,7 +104,7 @@ CREATE (`1`:Person {id:1, name:'Abeer Fathy'}), (`2`:Person {id:2, name:'An Yu-b
 CREATE (`company1`:Company {id:1, name:'CRC Press'}), (`company2`:Company {id:2, name:'Quantum Stabilzers'}), (`company3`:Company {id:3, name:'The SilverLogic'})
 
 //create the Job nodes
-CREATE (`job1`:Job {id:1, name:'Graphic Designer'}), (`job2`:Job {id:2, name:'Naval Engineer'}), (`job3`:Job {id:2, name:'Python Developer'})
+CREATE (`job1`:Job {id:1, name:'Designer'}), (`job2`:Job {id:2, name:'Naval Eng.'}), (`job3`:Job {id:3, name:'Py Dev'})
 
 //create the Skill nodes for the Python Developer Job
 CREATE (`skill1`:Skill {id:1, name:'Django'}), (`skill2`:Skill {id:2, name:'Flask'}), (`skill3`:Skill {id:3, name:'Git'})
@@ -136,14 +136,14 @@ CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`
 	(`10`)-[:KNOWS]->(`2`), (`10`)-[:KNOWS]->(`4`), (`10`)-[:KNOWS]->(`6`), 
 	(`11`)-[:KNOWS]->(`27`), (`11`)-[:KNOWS]->(`1`), (`11`)-[:KNOWS]->(`3`), (`11`)-[:KNOWS]->(`5`), 
 	(`12`)-[:KNOWS]->(`4`), (`12`)-[:KNOWS]->(`6`), 
-	(`13`)-[:KNOWS]->(`53`), (`13`)-[:KNOWS]->(`1`), 
+	(`13`)-[:KNOWS]->(`13`), (`13`)-[:KNOWS]->(`1`), 
 	(`14`)-[:KNOWS]->(`30`), (`14`)-[:KNOWS]->(`4`), 
 	(`15`)-[:KNOWS]->(`30`), (`15`)-[:KNOWS]->(`26`), (`15`)-[:KNOWS]->(`21`), (`15`)-[:KNOWS]->(`3`), (`15`)-[:KNOWS]->(`5`), 
-	(`16`)-[:KNOWS]->(`31`), (`16`)-[:KNOWS]->(`4`), 
-	(`17`)-[:KNOWS]->(`37`), (`17`)-[:KNOWS]->(`28`), 
-	(`18`)-[:KNOWS]->(`42`), (`18`)-[:KNOWS]->(`2`), 
+	(`16`)-[:KNOWS]->(`11`), (`16`)-[:KNOWS]->(`4`), 
+	(`17`)-[:KNOWS]->(`17`), (`17`)-[:KNOWS]->(`28`), 
+	(`18`)-[:KNOWS]->(`12`), (`18`)-[:KNOWS]->(`2`), 
 	(`19`)-[:KNOWS]->(`3`), (`19`)-[:KNOWS]->(`5`), 
-	(`20`)-[:KNOWS]->(`84`), (`20`)-[:KNOWS]->(`2`), 
+	(`20`)-[:KNOWS]->(`1`), (`20`)-[:KNOWS]->(`2`), 
 	(`21`)-[:KNOWS]->(`1`), (`21`)-[:KNOWS]->(`3`), (`21`)-[:KNOWS]->(`5`), 
 	(`22`)-[:KNOWS]->(`4`), (`22`)-[:KNOWS]->(`6`), (`22`)-[:KNOWS]->(`2`), 
 	(`24`)-[:KNOWS]->(`7`), (`24`)-[:KNOWS]->(`4`), 
@@ -172,7 +172,7 @@ CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
 CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`)
 
 //create Job-Skill relationships
-CREATE (`job1`)-[:HAS_SKILL]->(`skill8`), (`job2`)-[:HAS_SKILL]->(`skill12`)
+CREATE (`job1`)-[:HAS_SKILL]->(`skill1`), (`job2`)-[:HAS_SKILL]->(`skill4`), (`job3`)-[:HAS_SKILL]->(`skill7`)
 
 //create the Person-skill relationships
 CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
