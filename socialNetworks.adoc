@@ -118,11 +118,11 @@ CREATE (`skill7`:Skill {id:7, name:'Illustrator'}),(`skill8`:Skill {id:8, name:'
 
 //create the Group nodes
 
-CREATE (`group1`:Group {id:1, name:'Adobe Lovers'}), (`group2`:Group {id:2, name:'MIA Alums'}), (`group3`:Group {id:3, name:'Marketing Professionals'})
+CREATE (`group1`:Group {id:1, name:'Python Lovers'}), (`group2`:Group {id:2, name:'MIA Alums'}), (`group3`:Group {id:3, name:'Snakes Forever'})
 
-CREATE (`group4`:Group {id:4, name:'AutoDesk Lovers'}), (`group5`:Group {id:5, name:'Excel Support Group'}), (`group6`:Group {id:6, name:'Fishing is Life'})
+CREATE (`group4`:Group {id:4, name:'Yachties Unite'}), (`group5`:Group {id:5, name:'Excel Support Group'}), (`group6`:Group {id:6, name:'Fishing is Life'})
 
-CREATE(`group7`:Group {id:7, name:'Snakes Forever'}),(`group8`:Group {id:8, name:'Python Users Unite'}),(`group9`:Group {id:9, name:'Learn Python the Hard Way'})
+CREATE(`group7`:Group {id:7, name:'Marketing Pros'}),(`group8`:Group {id:8, name:'Python Users Unite'}),(`group9`:Group {id:9, name:'Learn Python the Hard Way'})
 
 //create the Person-Person relationships
 CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`)-[:KNOWS]->(`5`), 
