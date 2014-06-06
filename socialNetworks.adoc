@@ -95,13 +95,13 @@ _For more information on how to find experts in a network, take a look at 'http:
 [source,cypher]
 ----
 //create the Person nodes
-CREATE (`1`:Person {id:1, name:'Abeer Fathy'}), (`2`:Person {id:2, name:'An Yu-bao'}), (`3`:Person {id:3, name:'Anastasiya Vasilyev'}), (`4`:Person {id:4, name:'Anna Zaytesev'}), (`5`:Person {id:5, name:'Asley Leger'}), (`6`:Person {id:6, name:'Aziza Hsuang-tsung'}), (`7`:Person {id:7, name:'Bai Vasilyev'}), (`8`:Person {id:8, name:'Barbra Schon'}), (`9`:Person {id:9, name:'Bart Kosana'}), (`10`:Person {id:10, name:'Bill Hinzman'}), (`11`:Person {id:11, name:'Bill Cardille'}), (`12`:Person {id:12, name:'Bobba Fett'}), (`13`:Person {id:13, name:'Cai Shen'}), (`14`:Person {id:14, name:'Cammy Schott'}), (`15`:Person {id:15, name:'Cammy Vinogradov'}), (`16`:Person {id:16, name:'Cammy Sokolov'}), (`17`:Person {id:17, name:'Chan Morozov'}), (`18`:Person {id:18, name:'Chan Bang'}), (`19`:Person {id:19, name:'Charles Craig'}), (`20`:Person {id:20, name:'Chew Kwan-yew'}), (`21`:Person {id:21, name:'Chiang Popov'}), (`22`:Person {id:22, name:'Chiu Xiao-yong'}), (`23`:Person {id:23, name:'Dai Lu-fang'}), (`24`:Person {id:24, name:'Dariya Solovynov'}), (`25`:Person {id:25, name:'Dariya Semyonov'}), (`26`:Person {id:26, name:'Dariya Vorobyrov'}), (`27`:Person {id:27, name:'David Cardille'}), (`28`:Person {id:28, name:'Deeanna Lacroix'}), (`29`:Person {id:29, name:'Deng Szeto'}), (`30`:Person {id:30, name:'Dina Schott'})
+CREATE (`1`:Person {id:1, name:'Abeer Fathy'}), (`2`:Person {id:2, name:'An Yu-bao'}), (`3`:Person {id:3, name:'Anastasiya Vasilyev'}), (`4`:Person {id:4, name:'Anna Zaytesev'}), (`5`:Person {id:5, name:'Asley Leger'}), 
+(`6`:Person {id:6, name:'Aziza Hsuang-tsung'}), (`7`:Person {id:7, name:'Bai Vasilyev'}), (`8`:Person {id:8, name:'Barbra Schon'}), (`9`:Person {id:9, name:'Bart Kosana'}), (`10`:Person {id:10, name:'Bill Hinzman'}), 
+(`11`:Person {id:11, name:'Bill Cardille'}), (`12`:Person {id:12, name:'Bobba Fett'}), (`13`:Person {id:13, name:'Cai Shen'}), (`14`:Person {id:14, name:'Cammy Schott'}), (`15`:Person {id:15, name:'Cammy Vinogradov'}), (`16`:Person {id:16, name:'Cammy Sokolov'}), (`17`:Person {id:17, name:'Chan Morozov'}), (`18`:Person {id:18, name:'Chan Bang'}), (`19`:Person {id:19, name:'Charles Craig'}), (`20`:Person {id:20, name:'Chew Kwan-yew'}), 
+(`21`:Person {id:21, name:'Chiang Popov'}), (`22`:Person {id:22, name:'Chiu Xiao-yong'}), (`23`:Person {id:23, name:'Dai Lu-fang'}), (`24`:Person {id:24, name:'Dariya Solovynov'}), (`25`:Person {id:25, name:'Dariya Semyonov'}), (`26`:Person {id:26, name:'Dariya Vorobyrov'}), (`27`:Person {id:27, name:'David Cardille'}), (`28`:Person {id:28, name:'Deeanna Lacroix'}), (`29`:Person {id:29, name:'Deng Szeto'}), (`30`:Person {id:30, name:'Dina Schott'})
 
 //create the Company nodes
-CREATE (`company1`:Company {id:1, name:'CRC Press'}), (`company2`:Company {id:2, name:'Quantum Stabilzers'}), (`company3` {id:3, name:'The SilverLogic'})
-
-//temporary - making network much smaller, only 3 of everything but Persons
-//, (`company3`:Company {id:3, name:'Mir'}), (`company4`:Company {id:4, name:'Kosmos'}), (`company5`:Company {id:5, name:'Zvezda'}), (`company6`:Company {id:6, name:'Skylab'}), (`company7`:Company {id:7, name:'Genesis'}),(`company8`:Company {id:8, name:'World Medical Inc'}),(` company9`:Company {id:9, name:'Mining Inc'}), (`company10`:Company {id:10, name:'Absolute Engineering'}),(` company10`:Company {id:10, name:'Amazing Transportation'}), (`company12`:Company {id:12, name:'Whiskey Management'})
+CREATE (`company1`:Company {id:1, name:'CRC Press'}), (`company2`:Company {id:2, name:'Quantum Stabilzers'}), (`company3`:Company {id:3, name:'The SilverLogic'})
 
 //create the Job nodes
 CREATE (`job1`:Job {id:1, name:'Graphic Designer'}), (`job2`:Job {id:2, name:'Naval Engineer'}), (`job3`:Job {id:2, name:'Python Developer'})
@@ -171,10 +171,10 @@ CREATE (`21`)-[:MEMBER]->(`group6`), (`22`)-[:MEMBER]->(`group6`), (`23`)-[:MEMB
 CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
 CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`)
 
-//create job-skill relationships
+//create Job-Skill relationships
 CREATE (`job1`)-[:HAS_SKILL]->(`skill8`), (`job2`)-[:HAS_SKILL]->(`skill12`)
 
-//create the user-skill relationships
+//create the Person-skill relationships
 CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
 	(`2`)-[:HAS_SKILL]->(`skill1`), (`2`)-[:HAS_SKILL]->(`skill2`), (`2`)-[:HAS_SKILL]->(`skill3`), 
 	(`3`)-[:HAS_SKILL]->(`skill1`), (`3`)-[:HAS_SKILL]->(`skill2`), 
@@ -208,7 +208,8 @@ CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:H
 //create the job-company relationshpCREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`), (`job3`)-[:JOB_AT]->(`company3`)
 
 //create the user-company relationships
-CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), (`4`)-[:WORKS_AT]->(`company1`), (`5`)-[:WORKS_AT]->(`company2`), (`6`)-[:WORKS_AT]->(`company3`), (`7`)-[:WORKS_AT]->(`company1`), (`8`)-[:WORKS_AT]->(`company2`), (`9`)-[:WORKS_AT]->(`company3`), (`10`)-[:WORKS_AT]->(`company1`), (`11`)-[:WORKS_AT]->(`company2`), (`12`)-[:WORKS_AT]->(`company3`), (`13`)-[:WORKS_AT]->(`company1`), (`14`)-[:WORKS_AT]->(`company2`), (`15`)-[:WORKS_AT]->(`company3`), (`16`)-[:WORKS_AT]->(`company1`), (`17`)-[:WORKS_AT]->(`company2`), (`18`)-[:WORKS_AT]->(`company3`), (`19`)-[:WORKS_AT]->(`company1`), (`20`)-[:WORKS_AT]->(`company2`)
+CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), 
+(`4`)-[:WORKS_AT]->(`company1`), (`5`)-[:WORKS_AT]->(`company2`), (`6`)-[:WORKS_AT]->(`company3`), (`7`)-[:WORKS_AT]->(`company1`), (`8`)-[:WORKS_AT]->(`company2`), (`9`)-[:WORKS_AT]->(`company3`), (`10`)-[:WORKS_AT]->(`company1`), (`11`)-[:WORKS_AT]->(`company2`), (`12`)-[:WORKS_AT]->(`company3`), (`13`)-[:WORKS_AT]->(`company1`), (`14`)-[:WORKS_AT]->(`company2`), (`15`)-[:WORKS_AT]->(`company3`), (`16`)-[:WORKS_AT]->(`company1`), (`17`)-[:WORKS_AT]->(`company2`), (`18`)-[:WORKS_AT]->(`company3`), (`19`)-[:WORKS_AT]->(`company1`), (`20`)-[:WORKS_AT]->(`company2`)
 
 RETURN *
 LIMIT 50
@@ -314,7 +315,6 @@ _description of results here_
 == Conclusion
 
 _description of results here_
-
 
 
 [[why_neo]]
