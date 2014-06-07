@@ -122,7 +122,7 @@ CREATE (`skill7`:Skill {id:7, name:'Illustrator'}),(`skill8`:Skill {id:8, name:'
 //create Job-Skill relationships
 CREATE (`job1`)-[:HAS_SKILL]->(`skill7`), (`job1`)-[:HAS_SKILL]->(`skill8`),(`job1`)-[:HAS_SKILL]->(`skill9`),
 	(`job2`)-[:HAS_SKILL]->(`skill4`), (`job2`)-[:HAS_SKILL]->(`skill5`),(`job2`)-[:HAS_SKILL]->(`skill6`),
-	(`job3`)-[:HAS_SKILL]->(`skill1`),(`job3`)-[:HAS_SKILL]->(`skill1`)
+	(`job3`)-[:HAS_SKILL]->(`skill1`),(`job3`)-[:HAS_SKILL]->(`skill2`)
 
 //create the job-company relationshp
 CREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`), (`job3`)-[:JOB_AT]->(`company3`)
@@ -262,7 +262,6 @@ ORDER BY Company ASC, Jobs DESC
 ----
 //table
 
-
 [[problem_1]]
 == Finding the Best Group in which to Advertise
 
@@ -277,20 +276,18 @@ ORDER BY Company, `Count of Member Employees` DESC
 ----
 //table
 
-
 Assuming Companies are looking for low-skilled workers that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. 
 
 _description of results here_
 
 [[solution2]]
-=== Finding Target Groups through Current Employees _with a Similar Skill Set as Open Job_
+=== Finding Target Groups through Current Employees _with a Similar Skill Set as an Open Job_
 
 [source,cypher]
 ----
 MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill),(s)-[:HAS_SKILL]-(p:Person)-[:WORKS_AT]-(c),(p)-[:MEMBER]-(g:Group)
 RETURN DISTINCT c.name AS Company, j.name AS Job, s.name AS `Skills Required`, g.name AS Group, count(DISTINCT p) AS `Count of Member Employees`
-ORDER BY `Count of Member Employees` DESC
-LIMIT 10
+ORDER BY  Company,`Count of Member Employees` DESC
 ----
 //table
 
@@ -309,7 +306,7 @@ First, find an expert, as defined by someone with lots people in his or her netw
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
 RETURN DISTINCT s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
-ORDER BY `Count of Experts` DESC
+ORDER BY Skill DESC, `Count of Experts` DESC
 ----
 //table
 
@@ -319,7 +316,7 @@ What groups are the better-connected experts in? Are these groups different from
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s),(expert)-[:MEMBER]-(g:Group)
 RETURN DISTINCT g.name as Group, s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
-ORDER BY `Count of Experts` DESC
+ORDER BY Skill DESC, `Count of Experts` DESC
 ----
 //table
 
