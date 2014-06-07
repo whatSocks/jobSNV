@@ -167,7 +167,7 @@ CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`
 //Create the Person-Group relationships
 
 //Groups of interest to Graphic Designers
-CREATE (`1`)-[:MEMBER]->(`group1`), (`1`)-[:MEMBER]->(`group2`),(`2`)-[:MEMBER]->(`group1`), (`3`)-[:MEMBER]->(`group1`), (`4`)-[:MEMBER]->(`group1`)
+CREATE (`1`)-[:MEMBER]->(`group1`), (`30`)-[:MEMBER]->(`group2`),(`2`)-[:MEMBER]->(`group1`), (`3`)-[:MEMBER]->(`group1`), (`4`)-[:MEMBER]->(`group1`)
 CREATE (`5`)-[:MEMBER]->(`group2`), (`6`)-[:MEMBER]->(`group2`), (`7`)-[:MEMBER]->(`group2`), (`8`)-[:MEMBER]->(`group2`), (`9`)-[:MEMBER]->(`group2`)
 CREATE (`1`)-[:MEMBER]->(`group3`), (`3`)-[:MEMBER]->(`group3`), (`5`)-[:MEMBER]->(`group3`), (`7`)-[:MEMBER]->(`group3`), (`9`)-[:MEMBER]->(`group3`)
 
@@ -213,7 +213,7 @@ CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:H
 
 //create the user-company relationships
 CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), 
-(`4`)-[:WORKS_AT]->(`company1`), (`5`)-[:WORKS_AT]->(`company2`), (`6`)-[:WORKS_AT]->(`company3`), (`7`)-[:WORKS_AT]->(`company1`), (`8`)-[:WORKS_AT]->(`company2`), (`9`)-[:WORKS_AT]->(`company3`), (`10`)-[:WORKS_AT]->(`company1`), (`11`)-[:WORKS_AT]->(`company2`), (`12`)-[:WORKS_AT]->(`company3`), (`13`)-[:WORKS_AT]->(`company1`), (`14`)-[:WORKS_AT]->(`company2`), (`15`)-[:WORKS_AT]->(`company3`), (`16`)-[:WORKS_AT]->(`company1`), (`17`)-[:WORKS_AT]->(`company2`), (`18`)-[:WORKS_AT]->(`company3`), (`19`)-[:WORKS_AT]->(`company1`), (`20`)-[:WORKS_AT]->(`company2`)
+(`4`)-[:WORKS_AT]->(`company1`), (`5`)-[:WORKS_AT]->(`company2`), (`6`)-[:WORKS_AT]->(`company3`), (`7`)-[:WORKS_AT]->(`company1`), (`8`)-[:WORKS_AT]->(`company2`), (`9`)-[:WORKS_AT]->(`company3`), (`10`)-[:WORKS_AT]->(`company1`), (`11`)-[:WORKS_AT]->(`company2`), (`12`)-[:WORKS_AT]->(`company3`), (`13`)-[:WORKS_AT]->(`company1`), (`14`)-[:WORKS_AT]->(`company2`), (`15`)-[:WORKS_AT]->(`company3`), (`16`)-[:WORKS_AT]->(`company1`), (`17`)-[:WORKS_AT]->(`company2`), (`18`)-[:WORKS_AT]->(`company3`), (`19`)-[:WORKS_AT]->(`company1`), (`20`)-[:WORKS_AT]->(`company2`),(`30`)-[:WORKS_AT]->(`company3`)
 
 RETURN *
 LIMIT 50
