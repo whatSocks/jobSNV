@@ -102,7 +102,7 @@ For more information on how to find experts in a network, take a look at 'http:/
 CREATE (`1`:Person {id:1, name:'Abeer Fathy'}), (`2`:Person {id:2, name:'An Yu-bao'}), (`3`:Person {id:3, name:'Anastasiya Vasilyev'}), (`4`:Person {id:4, name:'Anna Zaytesev'}), (`5`:Person {id:5, name:'Asley Leger'}), 
 (`6`:Person {id:6, name:'Aziza Hsuang-tsung'}), (`7`:Person {id:7, name:'Bai Vasilyev'}), (`8`:Person {id:8, name:'Barbra Schon'}), (`9`:Person {id:9, name:'Bart Kosana'}), (`10`:Person {id:10, name:'Bill Hinzman'}), 
 (`11`:Person {id:11, name:'Bill Cardille'}), (`12`:Person {id:12, name:'Bobba Fett'}), (`13`:Person {id:13, name:'Cai Shen'}), (`14`:Person {id:14, name:'Cammy Schott'}), (`15`:Person {id:15, name:'Cammy Vinogradov'}), (`16`:Person {id:16, name:'Cammy Sokolov'}), (`17`:Person {id:17, name:'Chan Morozov'}), (`18`:Person {id:18, name:'Chan Bang'}), (`19`:Person {id:19, name:'Charles Craig'}), (`20`:Person {id:20, name:'Chew Kwan-yew'}), 
-(`21`:Person {id:21, name:'Chiang Popov'}), (`22`:Person {id:22, name:'Chiu Xiao-yong'}), (`23`:Person {id:23, name:'Dai Lu-fang'}), (`24`:Person {id:24, name:'Dariya Solovynov'}), (`25`:Person {id:25, name:'Dariya Semyonov'}), (`26`:Person {id:26, name:'Dariya Vorobyrov'}), (`27`:Person {id:27, name:'David Cardille'}), (`28`:Person {id:28, name:'Deeanna Lacroix'}), (`29`:Person {id:29, name:'Deng Szeto'}), (`30`:Person {id:30, name:'Dina Schott'})
+(`21`:Person {id:21, name:'Chiang Popov'}), (`22`:Person {id:22, name:'Chiu Xiao-yong'}), (`23`:Person {id:23, name:'Dai Lu-fang'}), (`24`:Person {id:24, name:'Dariya Solovynov'}), (`25`:Person {id:25, name:'Dariya Semyonov'}), (`26`:Person {id:26, name:'Dariya Vorobyrov'}), (`27`:Person {id:27, name:'David Cardille'}), (`28`:Person {id:28, name:'Deeanna Lacroix'}), (`29`:Person {id:29, name:'Deng Szeto'}), (`30`:Person {id:30, name:'Dina Schott'}),(`31`:Person {id:31, name:'David Schott'})
 
 //create the Company nodes
 CREATE (`company1`:Company {id:1, name:'CRC Press'}), (`company2`:Company {id:2, name:'Quantum Stabilzers'}), (`company3`:Company {id:3, name:'The SilverLogic'})
@@ -137,7 +137,7 @@ CREATE(`group7`:Group {id:7, name:'Marketing Pros'}),(`group8`:Group {id:8, name
 //create the Person-Person relationships
 CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`)-[:KNOWS]->(`5`), 
 	(`2`)-[:KNOWS]->(`3`), (`2`)-[:KNOWS]->(`4`), (`2`)-[:KNOWS]->(`5`), 
-	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), 
+	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), (`3`)-[:KNOWS]->(`31`), 
 	(`4`)-[:KNOWS]->(`5`), 
 	(`5`)-[:KNOWS]->(`7`), 
 	(`6`)-[:KNOWS]->(`7`), 
@@ -209,7 +209,8 @@ CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:H
 	(`27`)-[:HAS_SKILL]->(`skill7`), (`27`)-[:HAS_SKILL]->(`skill8`), (`27`)-[:HAS_SKILL]->(`skill9`), 
 	(`28`)-[:HAS_SKILL]->(`skill4`), 
 	(`29`)-[:HAS_SKILL]->(`skill7`), (`29`)-[:HAS_SKILL]->(`skill8`), 
-	(`30`)-[:HAS_SKILL]->(`skill7`)
+	(`30`)-[:HAS_SKILL]->(`skill7`),
+	(`31`)-[:HAS_SKILL]->(`skill1`)
 
 //create the user-company relationships
 CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), 
@@ -289,37 +290,40 @@ ORDER BY  Company,`Count of Member Employees` DESC
 ----
 //table
 
-Assuming _The SilverLogic_ are looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. 
+Assuming _The SilverLogic_ is looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. In the case of _The SilverLogic_ and its quest for a Django developer, there are three groups to choose from, each with the same number of employees as members. 
 
-_description of results here_
+What if a Company were less interested in social fit, how would they pick the best group advertise in?
 
 [[solution3]]
 === Finding Target Groups _with the Highest Number of Experts_
 
 Although going through current employees is generally positive, what if a Company has no contacts in a particular skill set? 
 
-First, find an expert, as defined by someone with lots people in his or her network with the same skills. 
+First, find an expert. Let's define an expert as someone with lots people in his or her network with the same skills. 
+
+Next, let's continue the search for a suitable Django developer. 
 
 [source,cypher]
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
-RETURN DISTINCT s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
-ORDER BY Skill DESC, `Count of Experts` DESC
+WHERE s.name = 'Django'
+RETURN DISTINCT expert.name AS Person, s.name AS Skill, count(a) AS `# Connections`
+ORDER BY `# Connections` DESC
 ----
 //table
 
-What groups are the better-connected experts in? Are these groups different from those of the less-connected experts?
+What groups are the better-connected experts in? 
 
 [source,cypher]
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s),(expert)-[:MEMBER]-(g:Group)
-RETURN DISTINCT g.name as Group, s.name AS Skill, count(DISTINCT expert) AS `Count of Experts`
-ORDER BY Skill DESC, `Count of Experts` DESC
+WHERE s.name = 'Django'
+RETURN DISTINCT g.name AS Group, s.name AS Skill, count(DISTINCT expert) AS `# Experts`
+ORDER BY Skill DESC , `# Experts` DESC
 ----
 //table
 
-_description of results here_
-
+Unsurprisingly, 
 
 [[conclusion]]
 == Conclusion
