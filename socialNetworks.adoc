@@ -180,7 +180,7 @@ CREATE (`11`)-[:MEMBER]->(`group5`), (`13`)-[:MEMBER]->(`group5`), (`15`)-[:MEMB
 //Groups of interest to Python Engineers
 CREATE (`21`)-[:MEMBER]->(`group6`), (`22`)-[:MEMBER]->(`group6`), (`23`)-[:MEMBER]->(`group6`), (`24`)-[:MEMBER]->(`group6`)
 CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
-CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`),(`32`)-[:MEMBER]->(`group3`),
+CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`),(`32`)-[:MEMBER]->(`group3`)
 
 //create the Person-Skill relationships
 CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
