@@ -137,7 +137,7 @@ CREATE(`group7`:Group {id:7, name:'Marketing Pros'}),(`group8`:Group {id:8, name
 //create the Person-Person relationships
 CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`)-[:KNOWS]->(`5`), 
 	(`2`)-[:KNOWS]->(`3`), (`2`)-[:KNOWS]->(`4`), (`2`)-[:KNOWS]->(`5`), 
-	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), (`3`)-[:KNOWS]->(`31`), 
+	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), (`1`)-[:KNOWS]->(`31`), 
 	(`4`)-[:KNOWS]->(`5`), 
 	(`5`)-[:KNOWS]->(`7`), 
 	(`6`)-[:KNOWS]->(`7`), 
