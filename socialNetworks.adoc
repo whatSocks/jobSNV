@@ -137,7 +137,7 @@ CREATE(`group7`:Group {id:7, name:'Marketing Pros'}),(`group8`:Group {id:8, name
 //create the Person-Person relationships
 CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`)-[:KNOWS]->(`5`), 
 	(`2`)-[:KNOWS]->(`3`), (`2`)-[:KNOWS]->(`4`), (`2`)-[:KNOWS]->(`5`), 
-	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), (`1`)-[:KNOWS]->(`31`), 
+	(`3`)-[:KNOWS]->(`4`), (`3`)-[:KNOWS]->(`5`), 
 	(`4`)-[:KNOWS]->(`5`), 
 	(`5`)-[:KNOWS]->(`7`), 
 	(`6`)-[:KNOWS]->(`7`), 
@@ -162,7 +162,8 @@ CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`
 	(`27`)-[:KNOWS]->(`11`), (`27`)-[:KNOWS]->(`1`), (`27`)-[:KNOWS]->(`3`), (`27`)-[:KNOWS]->(`5`), 
 	(`28`)-[:KNOWS]->(`4`), 
 	(`29`)-[:KNOWS]->(`19`), (`29`)-[:KNOWS]->(`1`), 
-	(`30`)-[:KNOWS]->(`14`)
+	(`30`)-[:KNOWS]->(`14`),
+	(`31`)-[:KNOWS]->(`32`)
 
 //Create the Person-Group relationships
 
@@ -179,7 +180,7 @@ CREATE (`11`)-[:MEMBER]->(`group5`), (`13`)-[:MEMBER]->(`group5`), (`15`)-[:MEMB
 //Groups of interest to Python Engineers
 CREATE (`21`)-[:MEMBER]->(`group6`), (`22`)-[:MEMBER]->(`group6`), (`23`)-[:MEMBER]->(`group6`), (`24`)-[:MEMBER]->(`group6`)
 CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
-CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`)
+CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`),(`32`)-[:MEMBER]->(`group3`),
 
 //create the Person-Skill relationships
 CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
