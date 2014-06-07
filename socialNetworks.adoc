@@ -119,9 +119,15 @@ CREATE (`skill4`:Skill {id:4, name:'CAD'}), (`skill5`:Skill {id:5, name:'Excel'}
 //create the Skill nodes for the Graphic Designer Job
 CREATE (`skill7`:Skill {id:7, name:'Illustrator'}),(`skill8`:Skill {id:8, name:'InDesign'}), (`skill9`:Skill {id:9, name:'Photoshop'})
 
+//create Job-Skill relationships
+CREATE (`job1`)-[:HAS_SKILL]->(`skill7`), (`job1`)-[:HAS_SKILL]->(`skill8`),(`job1`)-[:HAS_SKILL]->(`skill9`),
+	(`job2`)-[:HAS_SKILL]->(`skill4`), (`job2`)-[:HAS_SKILL]->(`skill5`),(`job2`)-[:HAS_SKILL]->(`skill6`),
+	(`job3`)-[:HAS_SKILL]->(`skill1`),(`job3`)-[:HAS_SKILL]->(`skill1`)
+
+//create the job-company relationshp
+CREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`), (`job3`)-[:JOB_AT]->(`company3`)
 
 //create the Group nodes
-
 CREATE (`group1`:Group {id:1, name:'Python Lovers'}), (`group2`:Group {id:2, name:'MIA Alums'}), (`group3`:Group {id:3, name:'Snakes Forever'})
 
 CREATE (`group4`:Group {id:4, name:'Yachties Unite'}), (`group5`:Group {id:5, name:'Excel Support Group'}), (`group6`:Group {id:6, name:'Fishing is Life'})
@@ -175,9 +181,6 @@ CREATE (`21`)-[:MEMBER]->(`group6`), (`22`)-[:MEMBER]->(`group6`), (`23`)-[:MEMB
 CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
 CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`)
 
-//create Job-Skill relationships
-CREATE (`job1`)-[:HAS_SKILL]->(`skill1`), (`job2`)-[:HAS_SKILL]->(`skill4`), (`job3`)-[:HAS_SKILL]->(`skill7`)
-
 //create the Person-skill relationships
 CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
 	(`2`)-[:HAS_SKILL]->(`skill1`), (`2`)-[:HAS_SKILL]->(`skill2`), (`2`)-[:HAS_SKILL]->(`skill3`), 
@@ -207,9 +210,6 @@ CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:H
 	(`28`)-[:HAS_SKILL]->(`skill4`), 
 	(`29`)-[:HAS_SKILL]->(`skill7`), (`29`)-[:HAS_SKILL]->(`skill8`), 
 	(`30`)-[:HAS_SKILL]->(`skill7`)
-
-
-//create the job-company relationshpCREATE (`job1`)-[:JOB_AT]->(`company3`), (`job2`)-[:JOB_AT]->(`company2`), (`job3`)-[:JOB_AT]->(`company3`)
 
 //create the user-company relationships
 CREATE (`1`)-[:WORKS_AT]->(`company1`), (`2`)-[:WORKS_AT]->(`company2`), (`3`)-[:WORKS_AT]->(`company3`), 
@@ -246,11 +246,22 @@ _Note - I'll adjust the graph so there are two groups with equal numbers of memb
 MATCH (c:Company)-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]-(s:Skill)
 RETURN c.name AS Company, count(DISTINCT p) AS `Employees`, s.name AS `Skills Required`
 ORDER BY Company ASC, Employees DESC
-LIMIT 10
 ----
 //table
 
 Assuming the Companies in our network are looking for employees with similar skillsets and social fit as their current employees, a Company might prefer a job candidate with more connections to current employees over one with more connections to experts in a particular Skill, depending on the position and how easy required Skills are to learn. 
+
+[[jobs]]
+=== Companies, their Open Jobs, and their Skills
+
+[source,cypher]
+----
+MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill)
+RETURN c.name AS Company, j.name AS `Jobs`, s.name AS `Skills Required`
+ORDER BY Company ASC, Jobs DESC
+----
+//table
+
 
 [[problem_1]]
 == Finding the Best Group in which to Advertise
@@ -272,7 +283,7 @@ Assuming Companies are looking for low-skilled workers that will work well with 
 _description of results here_
 
 [[solution2]]
-=== Finding Target Groups through Current Employees _with a Similar Skill Set_
+=== Finding Target Groups through Current Employees _with a Similar Skill Set as Open Job_
 
 [source,cypher]
 ----
