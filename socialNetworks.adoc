@@ -243,7 +243,7 @@ If a company were interested in posting an ad for and hiring Django developers, 
 ----
 MATCH (c:Company)-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]-(s:Skill)
 RETURN c.name AS Company, count(DISTINCT p) AS `Employees`, s.name AS `Has Skill`
-ORDER BY Company ASC, Employees DESC
+ORDER BY Company DESC, Employees DESC
 ----
 //table
 
@@ -272,11 +272,11 @@ Continuing the example from above, notice that the Company _The SilverLogic_ has
 ----
 MATCH (p:Person)-[:WORKS_AT]-(c:Company), (p)-[:MEMBER]-(g:Group)
 RETURN DISTINCT c.name AS Company, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
-ORDER BY Company, `Count of Member Employees` DESC
+ORDER BY Company DESC, `Count of Member Employees` DESC
 ----
 //table
 
-Assuming Companies are looking for a low-skill worker, like a high-school intern, that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. 
+Assuming Companies are looking for a low-skill worker, like a high-school intern, that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. It seems like a lot of _The SilverLogic_ employees are the members of the group _MIA Alums_. It seems like a good place to advertise for a Python internship. 
 
 [[solution2]]
 === Finding Target Groups through Current Employees _with a Similar Skill Set as an Open Job_
@@ -289,7 +289,7 @@ ORDER BY  Company,`Count of Member Employees` DESC
 ----
 //table
 
-Assuming Companies are looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. 
+Assuming _The SilverLogic_ are looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. 
 
 _description of results here_
 
