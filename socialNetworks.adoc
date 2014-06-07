@@ -262,7 +262,7 @@ Assuming the Companies in our network are looking for employees with similar ski
 ----
 MATCH (p:Person)-[:WORKS_AT]-(c:Company), (p)-[:MEMBER]-(g:Group)
 RETURN DISTINCT c.name AS Company, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
-ORDER BY `Count of Member Employees` DESC
+ORDER BY Company, `Count of Member Employees` DESC
 ----
 //table
 
