@@ -167,7 +167,7 @@ CREATE (`1`)-[:KNOWS]->(`2`), (`1`)-[:KNOWS]->(`3`), (`1`)-[:KNOWS]->(`4`), (`1`
 //Create the Person-Group relationships
 
 //Groups of interest to Graphic Designers
-CREATE (`1`)-[:MEMBER]->(`group1`), (`2`)-[:MEMBER]->(`group1`), (`3`)-[:MEMBER]->(`group1`), (`4`)-[:MEMBER]->(`group1`)
+CREATE (`1`)-[:MEMBER]->(`group1`), (`1`)-[:MEMBER]->(`group2`),(`2`)-[:MEMBER]->(`group1`), (`3`)-[:MEMBER]->(`group1`), (`4`)-[:MEMBER]->(`group1`)
 CREATE (`5`)-[:MEMBER]->(`group2`), (`6`)-[:MEMBER]->(`group2`), (`7`)-[:MEMBER]->(`group2`), (`8`)-[:MEMBER]->(`group2`), (`9`)-[:MEMBER]->(`group2`)
 CREATE (`1`)-[:MEMBER]->(`group3`), (`3`)-[:MEMBER]->(`group3`), (`5`)-[:MEMBER]->(`group3`), (`7`)-[:MEMBER]->(`group3`), (`9`)-[:MEMBER]->(`group3`)
 
@@ -181,7 +181,7 @@ CREATE (`21`)-[:MEMBER]->(`group6`), (`22`)-[:MEMBER]->(`group6`), (`23`)-[:MEMB
 CREATE (`25`)-[:MEMBER]->(`group7`), (`26`)-[:MEMBER]->(`group7`)
 CREATE (`21`)-[:MEMBER]->(`group9`), (`23`)-[:MEMBER]->(`group9`), (`25`)-[:MEMBER]->(`group9`), (`27`)-[:MEMBER]->(`group5`), (`29`)-[:MEMBER]->(`group5`)
 
-//create the Person-skill relationships
+//create the Person-Skill relationships
 CREATE (`1`)-[:HAS_SKILL]->(`skill1`), (`1`)-[:HAS_SKILL]->(`skill2`), (`1`)-[:HAS_SKILL]->(`skill3`), (`1`)-[:HAS_SKILL]->(`skill4`), 
 	(`2`)-[:HAS_SKILL]->(`skill1`), (`2`)-[:HAS_SKILL]->(`skill2`), (`2`)-[:HAS_SKILL]->(`skill3`), 
 	(`3`)-[:HAS_SKILL]->(`skill1`), (`3`)-[:HAS_SKILL]->(`skill2`), 
@@ -230,13 +230,11 @@ LIMIT 50
 ----
 MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
 RETURN g.name AS Group, s.name AS Skill, count(DISTINCT p) AS `Members`
-ORDER BY Group ASC, Members DESC
+ORDER BY Skill ASC, Members DESC
 ----
 //table
 
-Our network is very interested in Photoshop, and has several groups competing for 'most interested in Photoshop'. If a Company has enough resources to advertise a Job to one group, which group should it advertise to?
-
-_Note - I'll adjust the graph so there are two groups with equal numbers of members interested in Skill X to demonstrate why a company might want to pick one over the other_
+If a company were interested in posting an ad for and hiring Django developers, there are several groups competing for the pleasure of an advertisement offering potential financial security. If a Company has enough resources to advertise a Job to one group, which group should it advertise to? There are various paths by which to choose which group. 
 
 [[companies]]
 === Companies, their Employees, and their Skills
@@ -244,7 +242,7 @@ _Note - I'll adjust the graph so there are two groups with equal numbers of memb
 [source,cypher]
 ----
 MATCH (c:Company)-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]-(s:Skill)
-RETURN c.name AS Company, count(DISTINCT p) AS `Employees`, s.name AS `Skills Required`
+RETURN c.name AS Company, count(DISTINCT p) AS `Employees`, s.name AS `Has Skill`
 ORDER BY Company ASC, Employees DESC
 ----
 //table
@@ -262,6 +260,8 @@ ORDER BY Company ASC, Jobs DESC
 ----
 //table
 
+Continuing the example from above, notice that the Company _The SilverLogic_ has an open job for a Python Developer that requires the skills Django and Flask. Let's see which group might be the best to advertise this open position.   
+
 [[problem_1]]
 == Finding the Best Group in which to Advertise
 
@@ -276,9 +276,7 @@ ORDER BY Company, `Count of Member Employees` DESC
 ----
 //table
 
-Assuming Companies are looking for low-skilled workers that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. 
-
-_description of results here_
+Assuming Companies are looking for a low-skill worker, like a high-school intern, that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. 
 
 [[solution2]]
 === Finding Target Groups through Current Employees _with a Similar Skill Set as an Open Job_
