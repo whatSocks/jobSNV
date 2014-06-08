@@ -281,7 +281,8 @@ ORDER BY Company DESC, `Count of Member Employees` DESC
 Assuming Companies are looking for a low-skill worker, like a high-school intern, that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. It seems like a lot of _The SilverLogic_ employees are the members of the group _MIA Alums_. It seems like a good place to advertise for a Python internship. 
 
 [[solution2]]
-=== Finding Target Groups through Current Employees _with a Similar Skill Set as an Open Job_
+=== Finding Target Groups through Current Employees 
+==== _with a Similar Skill Set as an Open Job_
 
 [source,cypher]
 ----
