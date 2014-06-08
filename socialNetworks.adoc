@@ -18,8 +18,8 @@
 ** <<companies, Companies>>
 * *<<problem_1, Finding the Best Group in which to Advertise>>*
 ** <<solution1, Finding Target Groups through Employees>>
-** <<solution2, Finding Target Groups through Current Employees _with a Similar Skill Set_>>
-** <<solution3, Finding Target Groups _with the Highest Number of Experts_>>
+* *<<targeting_experts, Targeting Experts>>
+** <<solution2, Find an Expert>>
 * *<<conclusion, Conclusion>>*
 ** <<why_neo, Why Neo4j?>>
 * *<<use_case, Use Case: Viadeo>>*
@@ -293,16 +293,16 @@ ORDER BY  Company,`Count of Member Employees` DESC
 
 Assuming _The SilverLogic_ is looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. In the case of _The SilverLogic_ and its quest for a Django developer, there are three groups to choose from, each with the same number of employees as members. 
 
-What if a Company were less interested in social fit, how would they pick the best group advertise in?
+== Targeting Experts
+
+Taking a slightly different approach, the social network operators may want to offer companies the option to target ads at a particular number of experts in a particular skillset. This allows companies to advertise to qualified users without compromising the privacy of their targets or the quality of their results
 
 [[solution3]]
-=== Finding Target Groups _with the Highest Number of Experts_
+=== Find an Expert
 
-Although going through current employees is generally positive, what if a Company has no contacts in a particular skill set? 
+Let's define an expert as someone with lots people in his or her network with the same skills. The assumption is that if an individual has a particular skill, and knows a lot of others with the same skill (met through conferences, work, clubs), he or she has a greater depth of knowlege than a skilled individual with few contacts with the same skill
 
-First, find an expert. Let's define an expert as someone with lots people in his or her network with the same skills. 
-
-Next, let's continue the search for a suitable Django developer. 
+Let's continue the search for a suitable Django developer. 
 
 [source,cypher]
 ----
@@ -313,31 +313,19 @@ ORDER BY `# Connections` DESC
 ----
 //table
 
-What groups are the better-connected experts in? 
-
-[source,cypher]
-----
-MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s),(expert)-[:MEMBER]-(g:Group)
-WHERE s.name = 'Django'
-RETURN DISTINCT g.name AS Group, s.name AS Skill, count(DISTINCT expert) AS `# Experts`
-ORDER BY Skill DESC , `# Experts` DESC
-----
-//table
-
-Unsurprisingly, 
+If a company is interetsed in a Django developer, it can purchase an ad from the social network operator that offers ads to the top Django developers within some geographical or other constraints, and alert qualified users of the opportunity. Based on the query above, it seems as though Anna, An, Asley, and Anastasiya would be good candidaties for a position as a Django developer. 
 
 [[conclusion]]
 == Conclusion
 
-_description of results here_
-
+By harnessing the power of graph databases, social networks ranging from niche dating sites to networking giants such as LinkedIn have been able to increate their processing speed and quality of service. The examples above demonstrate how easy it is to find potential candidates--for future employment or otherwise--using a few simple queries. 
 
 [[why_neo]]
 === Why Neo4j?
 
 image:https://dl.dropboxusercontent.com/u/14493611/neo4j-logo.png[Neo4j Logo]
 
-Although Cypher has extraordinary features that might immediately improve these Group recommendations, using these very simple and related searches can produce practical results across a variety of analytical needs. 
+Although Cypher has extraordinary features that might immediately improve recommendations, using these very simple and related searches can produce practical results across a variety of analytical needs. 
 
 [[use_case]]
 == Use Case: Viadeo
