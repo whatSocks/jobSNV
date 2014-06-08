@@ -12,7 +12,6 @@
 ** <<introduction, Job Networking Platforms, an Introduction>>
 ** <<this_graphgist, This GraphGist>>
 * *<<targeted_ads, Targeted Employment Ads: A Closer Look>>*
-** <<preview, Planning Group Recommendations>>
 * *<<closer_look, A Closer Look at the Network>>*
 ** <<groups, Groups>>
 ** <<companies, Companies>>
@@ -84,15 +83,6 @@ Why not take the naive approach and look for groups with the highest proportion 
 
 Although users may not explicitly lie about their experience, they may slightly misrepresent their skills and abilities to mirror that of a more or less experienced person. In addition, users may also join Skill-specific groups due to general interest in learning about the Skill, because they want to network, or for a variety of other reasons. 
 
-[[preview]]
-=== Planning Group Recommendations
-
-We can take several paths to generate group recommendations for Companies, which will be described later in this document:
-
-- Find groups with relevant employees as members
-- Find groups with relevant high-value users ("experts") as members
-
-For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
 
 //hide
 //setup
@@ -302,7 +292,7 @@ Taking a slightly different approach, the social network operators may want to o
 [[solution3]]
 === Find an Expert
 
-Let's define an expert as someone with lots people in his or her network with the same skills. The assumption is that if an individual has a particular skill, and knows a lot of others with the same skill (met through conferences, work, clubs), he or she has a greater depth of knowlege than a skilled individual with few contacts with the same skill
+Let's define an expert as someone with lots people in his or her network with the same skills. The assumption is that if an individual has a particular skill, and knows a lot of others with the same skill (met through conferences, work, clubs), he or she has a greater depth of knowlege than a skilled individual with few contacts with the same skill.
 
 Let's continue the search for a suitable Django developer. 
 
@@ -316,6 +306,8 @@ ORDER BY `# Connections` DESC
 //table
 
 If a company is interetsed in a Django developer, it can purchase an ad from the social network operator that offers ads to the top Django developers within some geographical or other constraints, and alert qualified users of the opportunity. Based on the query above, it seems as though Anna, An, Asley, and Anastasiya would be good candidaties for a position as a Django developer. 
+
+For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
 
 [[conclusion]]
 == Conclusion
