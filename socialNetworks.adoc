@@ -98,7 +98,7 @@ CREATE (`1`:Person {id:1, name:'Abeer Fathy'}), (`2`:Person {id:2, name:'An Yu-b
 CREATE (`company1`:Company {id:1, name:'CRC Press'}), (`company2`:Company {id:2, name:'Quantum Stabilzers'}), (`company3`:Company {id:3, name:'The SilverLogic'})
 
 //create the Job nodes
-CREATE (`job1`:Job {id:1, name:'Designer'}), (`job2`:Job {id:2, name:'Naval Eng.'}), (`job3`:Job {id:3, name:'Py Dev'})
+CREATE (`job1`:Job {id:1, name:'Designer'}), (`job2`:Job {id:2, name:'Naval Eng.'}), (`job3`:Job {id:3, name:'Python Dev'})
 
 //create the Skill nodes for the Python Developer Job
 CREATE (`skill1`:Skill {id:1, name:'Django'}), (`skill2`:Skill {id:2, name:'Flask'}), (`skill3`:Skill {id:3, name:'Git'})
@@ -247,8 +247,8 @@ Assuming the Companies in our network are looking for employees with similar ski
 [source,cypher]
 ----
 MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill)
-RETURN c.name AS Company, j.name AS `Jobs`, s.name AS `Skills Required`
-ORDER BY Company ASC, Jobs DESC
+RETURN c.name AS Company, j.name AS `Open Jobs`, s.name AS `Skills Required`
+ORDER BY Company ASC, `Open Jobs` DESC
 ----
 //table
 
@@ -263,26 +263,29 @@ Continuing the example from above, notice that the Company _The SilverLogic_ has
 [source,cypher]
 ----
 MATCH (p:Person)-[:WORKS_AT]-(c:Company), (p)-[:MEMBER]-(g:Group)
+WHERE c.name = 'The SilverLogic'
 RETURN DISTINCT c.name AS Company, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
 ORDER BY Company DESC, `Count of Member Employees` DESC
 ----
 //table
 
-Assuming Companies are looking for a low-skill worker, like a high-school intern, that will work well with current employees, a good strategy might be to simply look for groups with the highest number of current employees. It seems like a lot of _The SilverLogic_ employees are the members of the group _MIA Alums_. It seems like a good place to advertise for a Python internship. 
+If _The SilverLogic_ were looking for a low-skill worker, like a high-school intern, a good strategy might be to simply look for groups with the highest number of current employees. It seems like a lot of _The SilverLogic_ employees are the members of the group _MIA Alums_. That group seems like a good place to advertise for a Python internship. 
 
 [[solution2]]
-=== Finding Target Groups through Current Employees 
-==== _with a Similar Skill Set as an Open Job_
+=== Finding Target Groups through Employees 
+==== _with a Similar Skill Set as the Open Job_
 
 [source,cypher]
 ----
 MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill),(s)-[:HAS_SKILL]-(p:Person)-[:WORKS_AT]-(c),(p)-[:MEMBER]-(g:Group)
-RETURN DISTINCT c.name AS Company, j.name AS Job, s.name AS `Skills Required`, g.name AS Group, count(DISTINCT p) AS `Count of Member Employees`
+WHERE c.name = 'The SilverLogic' 
+AND j.name = 'Python Dev'
+RETURN DISTINCT c.name AS Company, j.name AS Job, g.name AS Group, count(DISTINCT p) AS `Count of Member Employees`
 ORDER BY  Company,`Count of Member Employees` DESC
 ----
 //table
 
-Assuming _The SilverLogic_ is looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. In the case of _The SilverLogic_ and its quest for a Django developer, there are three groups to choose from, each with the same number of employees as members. 
+Assuming _The SilverLogic_ is looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. In the case of _The SilverLogic_ and its quest for a Python developer, there are several groups to choose from, two of which are better candidates for an ad than the last. 
 
 [[targeting_experts]]
 == Targeting Experts
@@ -294,18 +297,18 @@ Taking a slightly different approach, the social network operators may want to o
 
 Let's define an expert as someone with lots people in his or her network with the same skills. The assumption is that if an individual has a particular skill, and knows a lot of others with the same skill (met through conferences, work, clubs), he or she has a greater depth of knowlege than a skilled individual with few contacts with the same skill.
 
-Let's continue the search for a suitable Django developer. 
+Let's continue the search for a suitable Python developer. The following query returns a list of developers that both match the qualifications of the job in question and have connections that also match the job in question. 
 
 [source,cypher]
 ----
-MATCH (s:Skill)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
-WHERE s.name = 'Django'
+MATCH (j:Job)-[:HAS_SKILL]-(s:Skill), (s)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
+WHERE j.name = 'Python Dev'
 RETURN DISTINCT expert.name AS Person, s.name AS Skill, count(a) AS `# Connections`
 ORDER BY `# Connections` DESC
 ----
 //table
 
-If a company is interetsed in a Django developer, it can purchase an ad from the social network operator that offers ads to the top Django developers within some geographical or other constraints, and alert qualified users of the opportunity. Based on the query above, it seems as though Anna, An, Asley, and Anastasiya would be good candidaties for a position as a Django developer. 
+If a company is interetsed in a Python developer with Django and Flask as Skills, it can purchase an ad from the social network operator that offers ads to the top Python developers within some geographical or other constraints, and alert qualified users of the opportunity. 
 
 For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
 
