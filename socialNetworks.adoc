@@ -18,8 +18,8 @@
 ** <<companies, Companies>>
 * *<<problem_1, Finding the Best Group in which to Advertise>>*
 ** <<solution1, Finding Target Groups through Employees>>
-* *<<targeting_experts, Targeting Experts>>
-** <<solution2, Find an Expert>>
+* *<<targeting_experts, Targeting Experts>>*
+** <<solution3, Find an Expert>>
 * *<<conclusion, Conclusion>>*
 ** <<why_neo, Why Neo4j?>>
 * *<<use_case, Use Case: Viadeo>>*
@@ -293,6 +293,7 @@ ORDER BY  Company,`Count of Member Employees` DESC
 
 Assuming _The SilverLogic_ is looking for skilled workers that will work well with current employees, filtering for job-specific skills in addition to social connections may render useful results. In the case of _The SilverLogic_ and its quest for a Django developer, there are three groups to choose from, each with the same number of employees as members. 
 
+[[targeting_experts]]
 == Targeting Experts
 
 Taking a slightly different approach, the social network operators may want to offer companies the option to target ads at a particular number of experts in a particular skillset. This allows companies to advertise to qualified users without compromising the privacy of their targets or the quality of their results
