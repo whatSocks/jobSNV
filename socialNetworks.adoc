@@ -308,7 +308,7 @@ ORDER BY `# Connections` DESC
 ----
 //table
 
-If a company is interetsed in a Python developer with Django and Flask as Skills, it can purchase an ad from the social network operator that offers ads to the top Python developers within some geographical or other constraints, and alert qualified users of the opportunity. 
+If a company is interested in a Python developer with Django and Flask as Skills, it can purchase an ad from the social network operator that offers ads to the top Python developers within some geographical or other constraints, and alert qualified users of the opportunity. 
 
 For more information on how to find experts in a network, take a look at 'http://gist.neo4j.org/?cc121734efe6a7acfdae[Aardvark: The Anatomy of a Large-Scale Social Search Engine]'
 
