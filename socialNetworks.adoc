@@ -297,13 +297,13 @@ Taking a slightly different approach, the social network operators may want to o
 
 Let's define an expert as someone with lots people in his or her network with the same skills. The assumption is that if an individual has a particular skill, and knows a lot of others with the same skill (met through conferences, work, clubs), he or she has a greater depth of knowledge than a skilled individual with few contacts with the same skill.
 
-Let's continue the search for a suitable Python developer. The following query returns a list of developers that both match the qualifications of the job in question and have connections that also match the job in question. 
+Let's continue the search for a suitable Python developer. The following query returns a list of developers that both match the qualifications of the job in question and have connections that also match the job in question. Since the job has multiple skills attached to it, we're going to use the `collect()` Cypher function. 
 
 [source,cypher]
 ----
 MATCH (j:Job)-[:HAS_SKILL]->(s:Skill), (s)<-[:HAS_SKILL]-(expert:Person)-[:KNOWS]->(a:Person)-[:HAS_SKILL]->(s)
 WHERE j.name = 'Python Dev'
-RETURN DISTINCT expert.name AS Person, s.name AS Skill, count(a) AS `# Connections`
+RETURN DISTINCT expert.name AS Person, collect(DISTINCT s.name) AS Skill, count(a) AS `# Connections`
 ORDER BY `# Connections` DESC
 ----
 //table
