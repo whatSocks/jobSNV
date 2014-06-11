@@ -220,7 +220,7 @@ LIMIT 50
 
 [source,cypher]
 ----
-MATCH (s:Skill)-[:HAS_SKILL]-(p:Person)-[:MEMBER]-(g:Group)
+MATCH (s:Skill)<-[:HAS_SKILL]-(p:Person)-[:MEMBER]->(g:Group)
 RETURN g.name AS Group, s.name AS Skill, count(DISTINCT p) AS `Members`
 ORDER BY Skill ASC, Members DESC
 ----
@@ -233,7 +233,7 @@ If a company were interested in hiring Django developers, there are several grou
 
 [source,cypher]
 ----
-MATCH (c:Company)-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]-(s:Skill)
+MATCH (c:Company)<-[:WORKS_AT]-(p:Person)-[:HAS_SKILL]->(s:Skill)
 RETURN c.name AS Company, count(DISTINCT p) AS `Employees`, s.name AS `Has Skill`
 ORDER BY Company DESC, Employees DESC
 ----
@@ -246,7 +246,7 @@ Assuming the Companies in our network are looking for employees with similar ski
 
 [source,cypher]
 ----
-MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill)
+MATCH (c:Company)<-[:JOB_AT]-(j:Job)-[:HAS_SKILL]->(s:Skill)
 RETURN c.name AS Company, j.name AS `Open Jobs`, s.name AS `Skills Required`
 ORDER BY Company ASC, `Open Jobs` DESC
 ----
@@ -262,7 +262,7 @@ Continuing the example from above, notice that the Company _The SilverLogic_ has
 
 [source,cypher]
 ----
-MATCH (p:Person)-[:WORKS_AT]-(c:Company), (p)-[:MEMBER]-(g:Group)
+MATCH (p:Person)-[:WORKS_AT]->(c:Company), (p)-[:MEMBER]->(g:Group)
 WHERE c.name = 'The SilverLogic'
 RETURN DISTINCT c.name AS Company, g.name AS `Target Groups`, count(DISTINCT p) AS `Count of Member Employees`
 ORDER BY Company DESC, `Count of Member Employees` DESC
@@ -277,7 +277,7 @@ If _The SilverLogic_ were looking for a low-skill worker, like a high-school int
 
 [source,cypher]
 ----
-MATCH (c:Company)-[:JOB_AT]-(j:Job)-[:HAS_SKILL]-(s:Skill),(s)-[:HAS_SKILL]-(p:Person)-[:WORKS_AT]-(c),(p)-[:MEMBER]-(g:Group)
+MATCH (c:Company)<-[:JOB_AT]-(j:Job)-[:HAS_SKILL]->(s:Skill),(s)<-[:HAS_SKILL]-(p:Person)-[:WORKS_AT]->(c),(p)-[:MEMBER]->(g:Group)
 WHERE c.name = 'The SilverLogic' 
 AND j.name = 'Python Dev'
 RETURN DISTINCT c.name AS Company, j.name AS Job, g.name AS Group, count(DISTINCT p) AS `Count of Member Employees`
@@ -301,7 +301,7 @@ Let's continue the search for a suitable Python developer. The following query r
 
 [source,cypher]
 ----
-MATCH (j:Job)-[:HAS_SKILL]-(s:Skill), (s)-[:HAS_SKILL]-(expert:Person)-[:KNOWS]-(a:Person)-[:HAS_SKILL]-(s)
+MATCH (j:Job)-[:HAS_SKILL]->(s:Skill), (s)<-[:HAS_SKILL]-(expert:Person)-[:KNOWS]->(a:Person)-[:HAS_SKILL]->(s)
 WHERE j.name = 'Python Dev'
 RETURN DISTINCT expert.name AS Person, s.name AS Skill, count(a) AS `# Connections`
 ORDER BY `# Connections` DESC
@@ -315,7 +315,7 @@ For more information on how to find experts in a network, take a look at 'http:/
 [[conclusion]]
 == Conclusion
 
-By harnessing the power of graph databases, social networks ranging from niche dating sites to networking giants such as LinkedIn have been able to increate their processing speed and quality of service. The examples above demonstrate how easy it is to find potential candidates--for future employment or otherwise--using a few simple queries. 
+By harnessing the power of graph databases, social networks ranging from niche dating sites to networking giants such as LinkedIn have been able to increase their processing speed and quality of service. The examples above demonstrate how easy it is to find potential candidates--for future employment or otherwise--using a few simple queries. 
 
 [[why_neo]]
 === Why Neo4j?
