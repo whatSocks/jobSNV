@@ -247,7 +247,7 @@ Assuming the Companies in our network are looking for employees with similar ski
 [source,cypher]
 ----
 MATCH (c:Company)<-[:JOB_AT]-(j:Job)-[:HAS_SKILL]->(s:Skill)
-RETURN c.name AS Company, j.name AS `Open Jobs`, s.name AS `Skills Required`
+RETURN c.name AS Company, j.name AS `Open Jobs`, collect(DISTINCT  s.name) AS `Skills Required`
 ORDER BY Company ASC, `Open Jobs` DESC
 ----
 //table
