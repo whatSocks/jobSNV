@@ -29,7 +29,7 @@
 [[this_graphgist]]
 === This GraphGist 
 
-This GraphGist explores targeted 'marketing' on job networking sites such as LinkedIn, Viadeo, and Xing using a combination techniques. Our toy professional networking site allows users and companies to use the site for free, but does charge for job posting, and offers several options on how to put the job posting in front of the most relevant (and hopefully qualified and interested) users. 
+This GraphGist explores targeted 'marketing' on job networking sites such as LinkedIn, Viadeo, and Xing using a combination of techniques. Our toy professional networking site allows users and companies to use the site for free, but does charge for job posting, and offers several options on how to put the job posting in front of the most relevant (and hopefully qualified and interested) users. 
 
 [[introduction]]
 === Job Networking Platforms, an Introduction
